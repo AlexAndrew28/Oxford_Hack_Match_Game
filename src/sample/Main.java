@@ -16,6 +16,8 @@ public class Main extends Application {
         Button button_campaign = new Button("Campaign mode");
         Button button_inventory = new Button("Inventory");
         Button button_shop = new Button("Shop");
+        
+        System.out.println("HI ALEX");
 
         button_shop.setOnAction(value ->  {
             System.out.println("button - shop");
