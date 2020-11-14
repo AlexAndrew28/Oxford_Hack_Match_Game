@@ -16,7 +16,7 @@ public class Main extends Application {
         Button button_campaign = new Button("Campaign mode");
         Button button_inventory = new Button("Inventory");
         Button button_shop = new Button("Shop");
-        
+
         System.out.println("HI ALEX");
         System.out.println("sup bitches");
 
@@ -34,6 +34,8 @@ public class Main extends Application {
         Scene scene = new Scene(mmgp, 200, 100);
         primaryStage.setScene(scene);
         primaryStage.show();
+
+        primaryStage.setFullScreen(true);
     }
 
     public static void main(String[] args) {
