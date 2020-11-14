@@ -23,7 +23,7 @@ public class SceneTest extends Application {
         primaryStage.setTitle("Test");
         primaryStage.setScene(new GameScreen().getScene());
         primaryStage.show();
-        primaryStage.setFullScreen(true);
+//        primaryStage.setFullScreen(true);
 
     }
 

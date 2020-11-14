@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
@@ -9,6 +10,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -16,6 +18,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+
 
 public class GameScreen {
 
@@ -32,7 +35,7 @@ public class GameScreen {
         outerLayout.setPadding(new Insets(10));
         outerLayout.getChildren().add(tiles);
         outerLayout.getChildren().add(new InfoArea(levelData));
-        gameScene = new Scene(outerLayout, 1000, 5000);
+        gameScene = new Scene(outerLayout, 1600, 800);
         gameScene.setFill(Color.gray(0.7));
 
     }
@@ -44,7 +47,7 @@ public class GameScreen {
     private class InfoArea extends VBox {
 
         public InfoArea(SwapLevel levelData) {
-            setStyle("-fx-border-color: black");
+//            setStyle("-fx-border-color: black");
             setAlignment(Pos.CENTER);
 
             Canvas stats = new Canvas(400, 64*9-200);
@@ -106,18 +109,102 @@ public class GameScreen {
 
         private int tileSize = 64;
         private int buffer =  2;
+        private SwapLevel levelData;
+        private Tiles dragTile;
+        private int dragx;
+        private int dragy;
+        private int ogdragx;
+        private int ogdragy;
+        private int offsetx;
+        private int offsety;
 
         public TileArea(SwapLevel levelData) {
-
+            this.levelData = levelData;
+            dragTile = null;
             setAlignment(Pos.CENTER);
             setPrefSize(tileSize*8, tileSize*8);
-            setStyle("-fx-border-color: black");
+//            setStyle("-fx-border-color: black");
             Canvas canvas = new Canvas(tileSize*8, tileSize*9);
+
+            draw(canvas);
+
+            getChildren().add(canvas);
+            canvas.setOnMousePressed(new EventHandler<MouseEvent>() {
+                public void handle(MouseEvent event) {
+                    if (event.getX() > 0 && event.getX() < tileSize*8 && event.getY() > tileSize && event.getY() < 9*tileSize) {
+                        Tiles[][] tileGrid = levelData.getTileGrid();
+                        dragTile = tileGrid[(int) event.getX()/tileSize][(int) event.getY()/tileSize - 1];
+                        tileGrid[(int) event.getX()/tileSize][(int) event.getY()/tileSize - 1] = Tiles.placeHolder;
+                        dragx = (int) event.getX();
+                        dragy = (int) event.getY();
+                        ogdragx = (int) event.getX()/tileSize;
+                        ogdragy = (int) event.getY()/tileSize - 1;
+                        offsetx = dragx - ogdragx * tileSize;
+                        offsety = dragy - (ogdragy + 1) * tileSize;
+                        draw(canvas);
+                    }
+                    System.out.println("YOU PRESSED?");
+                }
+            });
+            canvas.setOnMouseDragged(new EventHandler<MouseEvent>() {
+                public void handle(MouseEvent event) {
+                    if (dragTile != null) {
+                        dragx = (int) event.getX();
+                        dragy = (int) event.getY();
+                        draw(canvas);
+                    }
+                    System.out.println("YOU MOVED?");
+                }
+            });
+            canvas.setOnMouseReleased(new EventHandler<MouseEvent>() {
+                public void handle(MouseEvent event) {
+                    if (dragTile != null) {
+                        Tiles[][] tileGrid = levelData.getTileGrid();
+                        int newx = (int) event.getX()/tileSize;
+                        int newy = (int) event.getY()/tileSize - 1;
+                        if (newx == ogdragx && newy == ogdragy) {
+                            tileGrid[ogdragx][ogdragy] = dragTile;
+                        } else if (newx >= 0 && newx < 8 && newy == ogdragy) {
+                            if (newx > ogdragx) {
+                                for (int i = ogdragx; i < newx; i++) {
+                                    tileGrid[i][newy] = tileGrid[i+1][newy];
+                                }
+                            } else if (newx < ogdragx) {
+                                for (int i = ogdragx; i > newx; i--) {
+                                    tileGrid[i][newy] = tileGrid[i-1][newy];
+                                }
+                            }
+                            tileGrid[newx][newy] = dragTile;
+                        } else if (newy >= 0 && newy < 8 && newx == ogdragx) {
+                            if (newy > ogdragy) {
+                                for (int i = ogdragy; i < newy; i++) {
+                                    tileGrid[newx][i] = tileGrid[newx][i+1];
+                                }
+                            } else if (newy < ogdragy) {
+                                for (int i = ogdragy; i > newy; i--) {
+                                    tileGrid[newx][i] = tileGrid[newx][i-1];
+                                }
+                            }
+                            tileGrid[newx][newy] = dragTile;
+                        } else {
+                            tileGrid[ogdragx][ogdragy] = dragTile;
+                        }
+                        dragTile = null;
+                        draw(canvas);
+                    }
+                    System.out.println("YOU RELEASED?");
+                }
+            });
+        }
+
+
+
+        private void draw(Canvas canvas) {
             GraphicsContext gc = canvas.getGraphicsContext2D();
 
+            gc.clearRect(0,0,canvas.getWidth(), canvas.getHeight());
             Tiles[][] tileGrid = levelData.getTileGrid();
             Tiles[] preview = levelData.getPreviewRow();
-//            gc.drawImage(tileGrid[0][0].getIcon(), 10, 10, 100, 100);
             gc.setFill(Color.rgb(168, 168, 191));
             gc.fillRoundRect(0,0,tileSize*8, tileSize, tileSize/2, tileSize/2);
             gc.setFill(Color.rgb(224, 224, 255));
@@ -128,8 +215,10 @@ public class GameScreen {
                     gc.drawImage(tileGrid[i][j].getIcon(), i * tileSize + buffer, (j+1) * tileSize + buffer*2, tileSize - buffer*2, tileSize - buffer*2);
                 }
             }
-//            getChildren().add(new Rectangle(10, 10, 64, 64));
-            getChildren().add(canvas);
+            // draw tile being dragged if any
+            if (dragTile != null) {
+                gc.drawImage(dragTile.getIcon(), dragx - offsetx, dragy - offsety, tileSize - buffer*2, tileSize - buffer*2);
+            }
         }
 
     }

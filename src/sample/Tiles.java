@@ -4,14 +4,16 @@ import javafx.scene.image.Image;
 
 public enum Tiles {
 
-    blue("basic_blue.png", 5),
+    blue("basic_orange.png", 5),
     cyan("basic_cyan.png", 5),
     green("basic_green.png", 5),
     red("basic_red.png", 5),
-    blank("basic_blank.png", 0),
-    power("power.png", 3),
+    power("golden_power.png", 3),
     accelerate("accelerate.png", 3),
-    decelerate("decelerate.png", 2);
+    decelerate("decelerate.png", 2),
+    blank("basic_blank.png", 0),
+    shadow("shadow.png", 0),
+    placeHolder("placeholder.png", 0);
 
     private Image icon;
     private int weight;

@@ -42,6 +42,26 @@ public class SwapLevel {
         }
     }
 
+    public void simulate() {
+
+    }
+
+    public void elimMatches() {
+        for (int i = 0; i < 8; i++) {
+            int lastSamex = 0;
+            Tiles lastSame = null;
+            for (int j = 0; j < 8; j++) {
+                if (tileGrid[j][i] != lastSame) {
+                    if (j - lastSamex > 2) {
+
+                    }
+                    lastSame = tileGrid[j][i];
+                    lastSamex = j;
+                }
+            }
+        }
+    }
+
     public void initRand() {
         Random r = new Random();
         Tiles[] tiles = Tiles.values();
@@ -57,7 +77,7 @@ public class SwapLevel {
         Random r = new Random();
         Tiles[] tiles = Tiles.values();
         for (int i = 0; i < tileGrid.length; i++) {
-            previewRow[i] = tiles[r.nextInt(tiles.length)];
+            previewRow[i] = randTable[r.nextInt(randTable.length)];
             for (int j = 0; j < tileGrid.length; j++) {
                 tileGrid[i][j] = randTable[r.nextInt(randTable.length)];
             }
