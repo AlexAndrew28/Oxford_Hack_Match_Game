@@ -34,6 +34,9 @@ public class Main extends Application {
         Scene scene = new Scene(mmgp, 200, 100);
         primaryStage.setScene(scene);
         primaryStage.show();
+
+
+
     }
 
     public static void main(String[] args) {
