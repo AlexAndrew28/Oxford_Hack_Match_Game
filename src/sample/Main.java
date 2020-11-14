@@ -18,6 +18,7 @@ public class Main extends Application {
         Button button_shop = new Button("Shop");
         
         System.out.println("HI ALEX");
+        System.out.println("sup bitches");
 
         button_shop.setOnAction(value ->  {
             System.out.println("button - shop");
