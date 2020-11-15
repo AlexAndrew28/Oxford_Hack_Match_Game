@@ -12,6 +12,7 @@ import java.awt.event.MouseEvent;
 
 public class Main extends Application {
 
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Time Swap");
@@ -43,20 +44,22 @@ public class Main extends Application {
         mmgp.add(button_test, 0, 4, 1, 1);
 
         Scene scene = new Scene(mmgp, 200, 100);
+
+
         GlobalSettingsData gsd = new GlobalSettingsData();
 
 
 
         Items items = new Items();
-        InventoryScreen is = new InventoryScreen(1,items);
-        ShopScreen ss = new ShopScreen(5, items, gsd);
+        InventoryScreen is = new InventoryScreen(1,items, primaryStage, scene);
+        ShopScreen ss = new ShopScreen(5, items, gsd, primaryStage, scene);
         Scene shopScene = ss.generateScene();
 
 
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        CampaignMap map = new CampaignMap(items, gsd, primaryStage);
+        CampaignMap map = new CampaignMap(items, gsd, primaryStage, scene);
 
         button_campaign.setOnAction(value -> {
             try {

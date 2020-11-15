@@ -15,19 +15,19 @@ public class Items {
     public Items() throws FileNotFoundException {
 
         Image image1 = new Image(new FileInputStream(System.getProperty("user.dir") + "\\src\\images\\stoneNecklace.png"));
-        Item item1 = new Item(0, "Stone Necklace", "Decreases the number of deceleration tokens by 50%", 1, false, 250, image1,7);
+        Item item1 = new Item(0, "Stone Necklace", "Decreases the number of deceleration tokens by 50%", 1, true, 250, image1,7);
         allItems.add(item1);
 
         Image image2 = new Image(new FileInputStream(System.getProperty("user.dir") + "\\src\\images\\basicSpear.png"));
-        Item item2 = new Item(1, "Basic Spear", "Consume all of the mechanical tokens on the board", 1, false, 200, image2,5);
+        Item item2 = new Item(1, "Basic Spear", "Consume all of the mechanical tokens on the board", 1, true, 200, image2,5);
         allItems.add(item2);
 
         Image image3 = new Image(new FileInputStream(System.getProperty("user.dir") + "\\src\\images\\torch.png"));
-        Item item3 = new Item(2, "Torch", "Converts up to 3 acceleration tokens to time tokens", 1, false, 150, image3,5);
+        Item item3 = new Item(2, "Torch", "Converts up to 3 acceleration tokens to time tokens", 1, true, 150, image3,5);
         allItems.add(item3);
 
         Image image4 = new Image(new FileInputStream(System.getProperty("user.dir") + "\\src\\images\\leatherCloak.png"));
-        Item item4 = new Item(3, "Leather Cloak", "Increase the number of protection tokens by 50%", 1, false, 150, image4,5);
+        Item item4 = new Item(3, "Leather Cloak", "Increase the number of protection tokens by 50%", 1, true, 150, image4,5);
         allItems.add(item4);
 
         Image image6 = new Image(new FileInputStream(System.getProperty("user.dir") + "\\src\\images\\basicTools.png"));

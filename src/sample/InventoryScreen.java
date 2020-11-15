@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -12,10 +13,14 @@ public class InventoryScreen {
     private int era;
     private Items items;
     private Item[] valueOfInvSlots = new Item[8];
+    private Stage primaryStage;
+    private Scene mainMenu;
 
-    public InventoryScreen(int era, Items items){
+    public InventoryScreen(int era, Items items, Stage primaryStage, Scene scene){
         this.era = era;
         this.items = items;
+        this.primaryStage = primaryStage;
+        this.mainMenu = scene;
     }
 
     public Scene generateScene(){
@@ -32,6 +37,15 @@ public class InventoryScreen {
         description.setMinWidth(300);
         description.setMaxWidth(300);
         mmgp.add(description, 6, 0, 1, 5);
+
+        Button backButton = new Button("Return to main menu");
+
+        backButton.setOnAction(value ->  {
+            primaryStage.setScene(mainMenu);
+        });
+
+        mmgp.add(backButton, 7, 0, 1, 1);
+
 
 
         for(int i = 0; i < 8; i++){

@@ -16,11 +16,13 @@ public class CampaignMap {
     private Items items;
     private GlobalSettingsData gsd;
     private Stage primaryStage;
+    private Scene scene;
 
-    public CampaignMap(Items items, GlobalSettingsData gsd, Stage primaryStage){
+    public CampaignMap(Items items, GlobalSettingsData gsd, Stage primaryStage, Scene scene){
         this.items = items;
         this.gsd = gsd;
         this.primaryStage = primaryStage;
+        this.scene = scene;
     }
 
 
@@ -164,7 +166,7 @@ public class CampaignMap {
         grid.add(button_endless, 0, 3, 1, 1);
 
         button_shop.setOnAction(value -> {
-            ShopScreen ss = new ShopScreen(5, items, gsd);
+            ShopScreen ss = new ShopScreen(5, items, gsd, primaryStage, scene);
             Scene scene2 = null;
             try {
                 scene2 = ss.generateScene();

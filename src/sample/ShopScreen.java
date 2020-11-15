@@ -18,6 +18,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Screen;
+import javafx.stage.Stage;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -27,7 +28,7 @@ public class ShopScreen {
     private Items items;
     private GlobalSettingsData gsd;
 
-    public ShopScreen(int era, Items items, GlobalSettingsData gsd){
+    public ShopScreen(int era, Items items, GlobalSettingsData gsd, Stage primaryStage, Scene scene){
         this.era = era;
         this.items = items;
         this.gsd = gsd;
