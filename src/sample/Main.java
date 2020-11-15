@@ -1,14 +1,19 @@
 package sample;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+
+import java.awt.event.MouseEvent;
 
 public class Main extends Application {
 
@@ -46,7 +51,9 @@ public class Main extends Application {
         button_shop.setMinWidth(300);
 //        button_test.setMinWidth(300);
 
-        button_shop.setOnAction(value -> System.out.println("button - shop"));
+        button_shop.setOnAction(value ->  {
+            System.out.println("button - shop");
+        });
 
         VBox menuBox = new VBox();
         menuBox.setStyle("-fx-background-color: #B4B4B4;");
