@@ -1,5 +1,7 @@
 package sample;
 
+import javafx.geometry.Point2D;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -16,11 +18,13 @@ public class SwapLevel {
     private int moves;
     private Tiles[] randTable;
     private boolean running;
+    private boolean[] activeItems;
 
 
     public SwapLevel(int level, int goal, int moves) {
         tileGrid = new Tiles[8][8];
         oldGrid = new Tiles[8][8];
+        activeItems = new boolean[30];
         previewRow = new Tiles[tileGrid.length];
         power = 0;
         points = 0;
@@ -147,36 +151,38 @@ public class SwapLevel {
 
     private void score(ArrayList<Tiles> match) {
         if (running) {
-            for (Tiles tile : match)
-                System.out.println(tile.toString());
-            System.out.println();
-            int score = 0;
-            if (Tiles.basic(match.get(0)) == Tiles.orange || Tiles.basic(match.get(1)) == Tiles.cyan || Tiles.basic(match.get(1)) == Tiles.red || Tiles.basic(match.get(1)) == Tiles.green) {
-                score = match.size() * GameStats.baseValue;
-                if (match.size() - 3 > 0)
-                    score *= Math.pow(GameStats.bigMatchMult, match.size() - 2);
-                for (Tiles tile : match) {
-                    if (Tiles.basic(tile) != tile)
-                        score *= GameStats.superMult;
+            if (onMatchRules(match)) {
+                for (Tiles tile : match)
+                    System.out.println(tile.toString());
+                System.out.println();
+                int score = 0;
+                if (Tiles.basic(match.get(0)) == Tiles.orange || Tiles.basic(match.get(1)) == Tiles.cyan || Tiles.basic(match.get(1)) == Tiles.red || Tiles.basic(match.get(1)) == Tiles.green) {
+                    score = match.size() * GameStats.baseValue;
+                    if (match.size() - 3 > 0)
+                        score *= Math.pow(GameStats.bigMatchMult, match.size() - 2);
+                    for (Tiles tile : match) {
+                        if (Tiles.basic(tile) != tile)
+                            score *= GameStats.superMult;
+                    }
+                    points += score * (1 + acceleration / 100.0);
+                } else {
+                    switch (match.get(0)) {
+                        case power:
+                            power += match.size() * GameStats.powerBaseVal * Math.pow(GameStats.bigMatchMult, Math.max(0, match.size() - 3));
+                            break;
+                        case accelerate:
+                            acceleration += match.size() * GameStats.accBaseVal * Math.pow(GameStats.bigMatchMult, Math.max(0, match.size() - 3));
+                            break;
+                        case decelerate:
+                            points -= match.size() * GameStats.accBaseVal * Math.pow(GameStats.bigMatchMult, Math.max(0, match.size() - 3)) * 3;
+                            acceleration -= match.size() * GameStats.accBaseVal * Math.pow(GameStats.bigMatchMult, Math.max(0, match.size() - 3)) * 2;
+                            break;
+                        case extraMove:
+                            moves += Math.pow(2, match.size() - 3);
+                            break;
+                    }
+                    acceleration = Math.max(acceleration, -50);
                 }
-                points += score * (1 + acceleration / 100.0);
-            } else {
-                switch (match.get(0)) {
-                    case power:
-                        power += match.size() * GameStats.powerBaseVal * Math.pow(GameStats.bigMatchMult, Math.max(0, match.size() - 3));
-                        break;
-                    case accelerate:
-                        acceleration += match.size() * GameStats.accBaseVal * Math.pow(GameStats.bigMatchMult, Math.max(0, match.size() - 3));
-                        break;
-                    case decelerate:
-                        points -= match.size() * GameStats.accBaseVal * Math.pow(GameStats.bigMatchMult, Math.max(0, match.size() - 3)) * 3;
-                        acceleration -= match.size() * GameStats.accBaseVal * Math.pow(GameStats.bigMatchMult, Math.max(0, match.size() - 3)) * 2;
-                        break;
-                    case extraMove:
-                        moves += Math.pow(2, match.size() - 3);
-                        break;
-                }
-                acceleration = Math.max(acceleration, -50);
             }
         }
     }
@@ -291,6 +297,165 @@ public class SwapLevel {
         printGrid();
         simulate();
         printGrid();
+    }
+
+    private void consume(Tiles tile, boolean score) {
+        int count = 0;
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (tileGrid[i][j] == tile) {
+                    count++;
+                    tileGrid[i][j] = Tiles.blank;
+                }
+            }
+        }
+        if (score)
+            points += count * GameStats.baseValue * (1 + acceleration / 100.0);
+        running = false;
+        simulate();
+        running = true;
+    }
+
+    private void convert(int amount, Tiles from, Tiles to) {
+        Random r = new Random();
+        ArrayList<Point2D> tokens = new ArrayList<Point2D>();
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (tileGrid[i][j] == from) {
+                    tokens.add(new Point2D(i, j));
+                }
+            }
+        }
+        for (int i = 0; i < amount && tokens.size() > 0; i++) {
+            int rand = r.nextInt(tokens.size());
+            tileGrid[(int) tokens.get(i).getX()][(int) tokens.get(i).getY()] = to;
+            tokens.remove(rand);
+        }
+    }
+
+    private int count(Tiles tile) {
+        int count = 0;
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (tileGrid[i][j] == tile) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
+    private boolean onMatchRules(ArrayList<Tiles> match) {
+        boolean evaluate = true;
+        switch (match.get(0)) {
+            case extraMove:
+                if (activeItems[7])
+                    power += match.size();
+                break;
+            case decelerate:
+                if (activeItems[8]) {
+                    evaluate = false;
+                    activeItems[8] = false;
+                } else if (activeItems[18]) {
+                    evaluate = false;
+                    activeItems[8] = false;
+                    acceleration += match.size() * GameStats.accBaseVal * Math.pow(GameStats.bigMatchMult, Math.max(0, match.size() - 3));
+                }
+
+                break;
+        }
+        if (match.size() >= 5 && activeItems[17])
+            moves += 1;
+
+
+        return evaluate;
+    }
+
+    public void useItem(int id) {
+        switch(id) {
+            case 0:
+                Tiles.decelerate.setWeight(Tiles.decelerate.getWeight()/2);
+                break;
+            case 1:
+                consume(Tiles.orange, true);
+                break;
+            case 2:
+                convert(3, Tiles.accelerate, Tiles.extraMove);
+                break;
+            case 3:
+                Tiles.red.setWeight(Tiles.red.getWeight()*2);
+                break;
+            case 4:
+                // no item
+                break;
+            case 5:
+                break;
+            case 6:
+                convert(5, Tiles.red, Tiles.orange);
+                break;
+            case 7:
+                activeItems[7] = true;
+                break;
+            case 8:
+                activeItems[8] = true;
+                break;
+            case 9:
+                Tiles.power.setWeight(Tiles.power.getWeight()*2);
+                break;
+            case 10:
+                moves += count(Tiles.red) / 5;
+                break;
+            case 11:
+                consume(Tiles.red, true);
+                break;
+            case 12:
+                break;
+            case 13:
+                Tiles.accelerate.setWeight(Tiles.accelerate.getWeight()*2);
+                break;
+            case 14:
+                Tiles.cyan.setWeight(Tiles.cyan.getWeight()*2);
+                break;
+            case 15:
+                consume(Tiles.cyan, true);
+                break;
+            case 16:
+                moves += count(Tiles.decelerate);
+                consume(Tiles.decelerate, false);
+                break;
+            case 17:
+                activeItems[17] = true;
+                break;
+            case 18:
+                activeItems[18] = true;
+                break;
+            case 19:
+                consume(Tiles.green, true);
+                break;
+            case 20:
+                break;
+            case 21:
+                break;
+            case 22:
+                break;
+            case 23:
+                break;
+            case 24:
+                break;
+            case 25:
+                break;
+            case 26:
+                break;
+            case 27:
+                break;
+            case 28:
+                break;
+            case 29:
+                break;
+            case 30:
+                break;
+
+        }
     }
 
     public Tiles[][] getTileGrid() {

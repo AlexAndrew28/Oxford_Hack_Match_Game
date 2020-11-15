@@ -11,8 +11,10 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -30,10 +32,15 @@ public class SceneTest extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Test");
-        primaryStage.setScene(new GameScreen().getScene());
+        primaryStage.setScene(new LevelEnd(500, 500, 10).getScene());
         primaryStage.show();
 //        primaryStage.setFullScreen(true);
         System.out.println("hi");
+
+//        Popup popup = new Popup();
+//        Label label = new Label("popup test");
+//        popup.getContent().add(label);
+//        popup.show(primaryStage);
     }
 
 //    public static final double W = 200; // canvas dimensions.

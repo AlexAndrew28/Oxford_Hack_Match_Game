@@ -8,17 +8,17 @@ public enum Tiles {
     multiOrange("multi_orange.png", 0, null),
     multiRed("multi_red.png", 0, null),
     multiCyan("multi_blue.png", 0, null),
-    orange("basic_orange.png", 5, multiOrange),
-    cyan("basic_cyan.png", 5, multiCyan),
-    green("basic_green.png", 5, multiGreen),
-    red("basic_red.png", 5, multiRed),
-    power("golden_power.png", 3, null),
-    accelerate("accelerate.png", 3, null),
-    decelerate("decelerate.png", 2, null),
+    orange("basic_orange.png", 50, multiOrange),
+    cyan("basic_cyan.png", 50, multiCyan),
+    green("basic_green.png", 50, multiGreen),
+    red("basic_red.png", 50, multiRed),
+    power("golden_power.png", 30, null),
+    accelerate("accelerate.png", 30, null),
+    decelerate("decelerate.png", 20, null),
     blank("basic_blank.png", 0, null),
     shadow("shadow.png", 0, null),
     placeHolder("placeholder.png", 0, null),
-    extraMove("plus_move.png", 3, null);
+    extraMove("plus_move.png", 30, null);
 
 
     private Image icon;
@@ -37,6 +37,10 @@ public enum Tiles {
 
     public int getWeight() {
         return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
     }
 
     public Tiles getMulti() {
