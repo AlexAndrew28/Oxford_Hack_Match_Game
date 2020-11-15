@@ -51,9 +51,9 @@ public class CampaignMap {
         Button buttonLevel_3_2 = new Button("3-2");
         Button buttonLevel_3_3 = new Button("3-3");
 
-        Button button_non = new Button("Non-Portal Level");
+
         Button button_shop = new Button("Enter the Shop!");
-        Button button_endless = new Button("Endless Mode");
+        Button button_inventory = new Button("View Inventory");
 
         //portal button 1
         FileInputStream inputA = new FileInputStream("src/res/round_portalA.png");
@@ -161,30 +161,18 @@ public class CampaignMap {
         grid.add(buttonLevel_3_3, 3, 3, 1, 1);
 
         //set positions of other buttons
-        grid.add(button_non, 0, 1, 1, 1);
+
         grid.add(button_shop, 0, 2, 1, 1);
-        grid.add(button_endless, 0, 3, 1, 1);
+        grid.add(button_inventory, 0, 3, 1, 1);
 
-        button_shop.setOnAction(value -> {
-            ShopScreen ss = new ShopScreen(items, gsd, primaryStage, scene);
-            Scene scene2 = null;
-            try {
-                scene2 = ss.generateScene();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-
-            primaryStage.setScene(scene2);
-            primaryStage.setMaximized(true);
-            primaryStage.isFullScreen();
-            primaryStage.show();
-        });
 
         Scene map = new Scene(grid, 1920, 1080);
 
         FileInputStream input2 = new FileInputStream("src/res/round_portal_on.png");
         Image image2 = new Image(input2);
         ImageView imageView2 = new ImageView(image2);
+
+        //button hover stuff
 
         buttonPortal_start.hoverProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean show) ->  {
             if (show) {
@@ -297,20 +285,34 @@ public class CampaignMap {
             }
         });
 
+
+        button_shop.setOnAction(value -> {
+            ShopScreen ss = new ShopScreen(items, gsd, primaryStage, scene);
+            Scene scene2 = null;
+            try {
+                scene2 = ss.generateScene();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            primaryStage.setScene(scene2);
+            primaryStage.setMaximized(true);
+            primaryStage.isFullScreen();
+            primaryStage.show();
+        });
+
+
+        button_inventory.setOnAction(value -> {
+            InventoryScreen is = new InventoryScreen(items, primaryStage, scene, gsd);
+            Scene scene2 = null;
+            scene2 = is.generateScene();
+
+            primaryStage.setScene(scene2);
+            primaryStage.setMaximized(true);
+            primaryStage.isFullScreen();
+            primaryStage.show();
+        });
+
         return map;
-    }
-
-    public void test(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("ImageView Experiment 1");
-
-        FileInputStream input = new FileInputStream("src/res/portal.png");
-        Image image = new Image(input);
-        ImageView imageView = new ImageView(image);
-
-        HBox hbox = new HBox(imageView);
-
-        Scene scene = new Scene(hbox, 200, 100);
-        primaryStage.setScene(scene);
-        primaryStage.show();
     }
 }
