@@ -318,9 +318,7 @@ public class CampaignMap {
 
         buttonLevel_1_1.setOnAction(value -> {
             InventoryScreen is = new InventoryScreen(items, primaryStage, scene, gsd);
-            new GameScreen(main, is.getValueOfInvSlots(), 1, 10000, 20).getScene();
-            primaryStage.setScene(new GameScreen(main, is.getValueOfInvSlots(), 1, 10000, 20).getScene());
-
+            primaryStage.setScene(new GameScreen(main, is.getValueOfInvSlots(), 1, 10000, 20, false).getScene());
             primaryStage.setMaximized(true);
             primaryStage.isFullScreen();
             primaryStage.show();
@@ -328,9 +326,7 @@ public class CampaignMap {
 
         buttonLevel_1_2.setOnAction(value -> {
             InventoryScreen is = new InventoryScreen(items, primaryStage, scene, gsd);
-            new GameScreen(main, is.getValueOfInvSlots(), 2, 10000, 20).getScene();
-            primaryStage.setScene(new GameScreen(main, is.getValueOfInvSlots(), 2, 10000, 20).getScene());
-
+            primaryStage.setScene(new GameScreen(main, is.getValueOfInvSlots(), 1, 10000, 20, false).getScene());
             primaryStage.setMaximized(true);
             primaryStage.isFullScreen();
             primaryStage.show();
@@ -338,9 +334,7 @@ public class CampaignMap {
 
         buttonLevel_1_3.setOnAction(value -> {
             InventoryScreen is = new InventoryScreen(items, primaryStage, scene, gsd);
-            new GameScreen(main, is.getValueOfInvSlots(), 3, 10000, 20).getScene();
-            primaryStage.setScene(new GameScreen(main, is.getValueOfInvSlots(), 2, 10000, 20).getScene());
-
+            primaryStage.setScene(new GameScreen(main, is.getValueOfInvSlots(), 1, 10000, 20, false).getScene());
             primaryStage.setMaximized(true);
             primaryStage.isFullScreen();
             primaryStage.show();
@@ -348,9 +342,7 @@ public class CampaignMap {
 
         buttonLevel_2_1.setOnAction(value -> {
             InventoryScreen is = new InventoryScreen(items, primaryStage, scene, gsd);
-            new GameScreen(main, is.getValueOfInvSlots(), 4, 10000, 20).getScene();
-            primaryStage.setScene(new GameScreen(main, is.getValueOfInvSlots(), 2, 10000, 20).getScene());
-
+            primaryStage.setScene(new GameScreen(main, is.getValueOfInvSlots(), 1, 10000, 20, false).getScene());
             primaryStage.setMaximized(true);
             primaryStage.isFullScreen();
             primaryStage.show();
@@ -358,9 +350,7 @@ public class CampaignMap {
 
         buttonLevel_2_2.setOnAction(value -> {
             InventoryScreen is = new InventoryScreen(items, primaryStage, scene, gsd);
-            new GameScreen(main, is.getValueOfInvSlots(), 5, 10000, 20).getScene();
-            primaryStage.setScene(new GameScreen(main, is.getValueOfInvSlots(), 2, 10000, 20).getScene());
-
+            primaryStage.setScene(new GameScreen(main, is.getValueOfInvSlots(), 1, 10000, 20, false).getScene());
             primaryStage.setMaximized(true);
             primaryStage.isFullScreen();
             primaryStage.show();
@@ -368,9 +358,7 @@ public class CampaignMap {
 
         buttonLevel_2_3.setOnAction(value -> {
             InventoryScreen is = new InventoryScreen(items, primaryStage, scene, gsd);
-            new GameScreen(main, is.getValueOfInvSlots(), 6, 10000, 20).getScene();
-            primaryStage.setScene(new GameScreen(main, is.getValueOfInvSlots(), 2, 10000, 20).getScene());
-
+            primaryStage.setScene(new GameScreen(main, is.getValueOfInvSlots(), 1, 10000, 20, false).getScene());
             primaryStage.setMaximized(true);
             primaryStage.isFullScreen();
             primaryStage.show();
@@ -378,9 +366,7 @@ public class CampaignMap {
 
         buttonLevel_3_1.setOnAction(value -> {
             InventoryScreen is = new InventoryScreen(items, primaryStage, scene, gsd);
-            new GameScreen(main, is.getValueOfInvSlots(), 7, 10000, 20).getScene();
-            primaryStage.setScene(new GameScreen(main, is.getValueOfInvSlots(), 2, 10000, 20).getScene());
-
+            primaryStage.setScene(new GameScreen(main, is.getValueOfInvSlots(), 1, 10000, 20, false).getScene());
             primaryStage.setMaximized(true);
             primaryStage.isFullScreen();
             primaryStage.show();
@@ -388,9 +374,7 @@ public class CampaignMap {
 
         buttonLevel_3_2.setOnAction(value -> {
             InventoryScreen is = new InventoryScreen(items, primaryStage, scene, gsd);
-            new GameScreen(main, is.getValueOfInvSlots(), 8, 10000, 20).getScene();
-            primaryStage.setScene(new GameScreen(main, is.getValueOfInvSlots(), 2, 10000, 20).getScene());
-
+            primaryStage.setScene(new GameScreen(main, is.getValueOfInvSlots(), 1, 10000, 20, false).getScene());
             primaryStage.setMaximized(true);
             primaryStage.isFullScreen();
             primaryStage.show();
@@ -398,22 +382,18 @@ public class CampaignMap {
 
         buttonLevel_3_3.setOnAction(value -> {
             InventoryScreen is = new InventoryScreen(items, primaryStage, scene, gsd);
-            new GameScreen(main, is.getValueOfInvSlots(), 9, 10000, 20).getScene();
-            primaryStage.setScene(new GameScreen(main, is.getValueOfInvSlots(), 2, 10000, 20).getScene());
-
+            primaryStage.setScene(new GameScreen(main, is.getValueOfInvSlots(), 1, 10000, 20, false).getScene());
             primaryStage.setMaximized(true);
             primaryStage.isFullScreen();
             primaryStage.show();
         });
 
         buttonPortal_start.setOnAction(value -> { // tutorial scene
-            /*InventoryScreen is = new InventoryScreen(items, primaryStage, scene, gsd);
-            new GameScreen(main, is.getValueOfInvSlots(), 9, 10000, 20).getScene();
-            primaryStage.setScene(new GameScreen(main, is.getValueOfInvSlots(), 2, 10000, 20).getScene());
-
+            InventoryScreen is = new InventoryScreen(items, primaryStage, scene, gsd);
+            primaryStage.setScene(new GameScreen(main, is.getValueOfInvSlots(), 1, 10000, 20, true).getScene());
             primaryStage.setMaximized(true);
             primaryStage.isFullScreen();
-            primaryStage.show();*/
+            primaryStage.show();
         });
 
         buttonPortal_fantasy.setOnAction(value ->{ // cutscene?
