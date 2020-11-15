@@ -17,6 +17,7 @@ public class CampaignMap {
 
 
     public Scene setTheScene() throws Exception {
+        GridPane grid = new GridPane();
 
 
         //image file path:
@@ -24,13 +25,8 @@ public class CampaignMap {
         //      C:\Users\Productive\Documents\Coding\Principles of Programming\Oxford_Hack_Match_Game\src\res\portal.png
 
 
-
-
-
-
-
-        GridPane grid = new GridPane();
-
+        Image back = new Image(new FileInputStream("src\\res\\lands.png"));
+        grid.add(new ImageView(back),0,0,20,20);
 
 
         /*//grid.setStyle("-fx-background-image: url('src/res/backdrop.png')");
@@ -41,17 +37,19 @@ public class CampaignMap {
         grid.setStyle("-fx-background-size: 1920 1080");
         grid.setStyle("-fx-background-position: center center");*/
 
-        BackgroundImage myBI= new BackgroundImage(new Image("file:\\src\\res\\background.png",1920,1080,false,true),
+       /* BackgroundImage myBI= new BackgroundImage(new Image("file:\\src\\res\\background.png",1920,1080,false,true),
                 BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
 
-        grid.setBackground(new Background(myBI));
+        grid.setBackground(new Background(myBI));*/
+
+
 
         //portal level buttons
         Button buttonPortal_start = new Button("Begin!"); // starting portal (in dinosaur age)
         Button buttonPortal_fantasy = new Button("Level 2-0"); // 2nd portal (from dinosaurs to fantasy)
         Button buttonPortal_future = new Button("Level 3-0"); // 3rd portal (from fantasy to future)
-        Button buttonPortal_end = new Button("Finale"); // final portal (from future to game complete)
+        Button buttonPortal_end = new Button(""); // final portal (from future to game complete)
 
         //non-portal level buttons
         Button buttonLevel_1_1 = new Button("1-1");
@@ -71,20 +69,34 @@ public class CampaignMap {
         Button button_endless = new Button("Endless Mode");
 
         //portal button 1
-        FileInputStream input = new FileInputStream("src/res/small_portal.png");
-        Image image = new Image(input);
-        ImageView imageView = new ImageView(image);
-        buttonPortal_start.setGraphic(imageView);
-        buttonPortal_start.setStyle("-fx-background-color: #8B008B");
+        FileInputStream inputA = new FileInputStream("src/res/round_portalA.png");
+        Image imageA = new Image(inputA);
+        ImageView imageViewA = new ImageView(imageA);
+        buttonPortal_start.setGraphic(imageViewA);
 
-        buttonPortal_fantasy.setGraphic(imageView);
-        buttonPortal_fantasy.setStyle("-fx-background-color: #8B008B");
+        FileInputStream inputB = new FileInputStream("src/res/round_portalB.png");
+        Image imageB = new Image(inputB);
+        ImageView imageViewB = new ImageView(imageB);
+        buttonPortal_fantasy.setGraphic(imageViewB);
 
-        buttonPortal_future.setGraphic(imageView);
-        buttonPortal_future.setStyle("-fx-background-color: #8B008B");
+        FileInputStream inputC = new FileInputStream("src/res/round_portalC.png");
+        Image imageC = new Image(inputC);
+        ImageView imageViewC = new ImageView(imageC);
+        buttonPortal_future.setGraphic(imageViewC);
 
-        buttonPortal_end.setGraphic(imageView);
-        buttonPortal_end.setStyle("-fx-background-color: #f4f4f4");
+        FileInputStream inputD = new FileInputStream("src/res/round_portalD.png");
+        Image imageD = new Image(inputD);
+        ImageView imageViewD = new ImageView(imageD);
+        buttonPortal_end.setGraphic(imageViewD);
+
+
+        buttonPortal_start.setStyle("-fx-background-color: transparent");
+
+        buttonPortal_fantasy.setStyle("-fx-background-color: transparent");
+
+        buttonPortal_future.setStyle("-fx-background-color: transparent");
+
+        buttonPortal_end.setStyle("-fx-background-color: transparent");
 
 
         //non portal buttons:
@@ -168,8 +180,53 @@ public class CampaignMap {
 
         Scene map = new Scene(grid, 1920, 1080);
 
-        //actions
+        FileInputStream input2 = new FileInputStream("src/res/round_portal_on.png");
+        Image image2 = new Image(input2);
+        ImageView imageView2 = new ImageView(image2);
 
+        buttonPortal_start.hoverProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean show) ->  {
+            if (show) {
+                buttonPortal_start.setGraphic(imageView2);
+                //buttonLevel_1_1.setStyle("-fx-border-color: #000000");
+            } else {
+                buttonPortal_start.setGraphic(imageViewA);
+                //buttonLevel_1_1.setStyle("-fx-border-color: #000000");
+            }
+        });
+
+        buttonPortal_fantasy.hoverProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean show) ->  {
+            if (show) {
+                buttonPortal_fantasy.setGraphic(imageView2);
+                //buttonLevel_1_1.setStyle("-fx-border-color: #000000");
+            } else {
+                buttonPortal_fantasy.setGraphic(imageViewB);
+                //buttonLevel_1_1.setStyle("-fx-border-color: #000000");
+            }
+        });
+
+        buttonPortal_future.hoverProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean show) ->  {
+            if (show) {
+                buttonPortal_future.setGraphic(imageView2);
+                //buttonLevel_1_1.setStyle("-fx-border-color: #000000");
+            } else {
+                buttonPortal_future.setGraphic(imageViewC);
+                //buttonLevel_1_1.setStyle("-fx-border-color: #000000");
+            }
+        });
+
+        buttonPortal_end.hoverProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean show) ->  {
+            if (show) {
+                buttonPortal_end.setGraphic(imageView2);
+                //buttonLevel_1_1.setStyle("-fx-border-color: #000000");
+            } else {
+                buttonPortal_end.setGraphic(imageViewD);
+                //buttonLevel_1_1.setStyle("-fx-border-color: #000000");
+            }
+        });
+
+
+
+        //non portal level actions
         buttonLevel_1_1.hoverProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean show) ->  {
             if (show) {
                 buttonLevel_1_1.setStyle("-fx-background-color: #c4c4c4");
