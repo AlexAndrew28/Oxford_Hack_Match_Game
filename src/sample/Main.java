@@ -12,9 +12,12 @@ import java.awt.event.MouseEvent;
 
 public class Main extends Application {
 
+    Stage primaryStage;
+    Scene mainMenu;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        this.primaryStage = primaryStage;
         primaryStage.setTitle("Time Swap");
 
         primaryStage.setMaximized(true);
@@ -43,7 +46,7 @@ public class Main extends Application {
 
         mmgp.add(button_test, 0, 4, 1, 1);
 
-        Scene scene = new Scene(mmgp, 200, 100);
+        mainMenu = new Scene(mmgp, 200, 100);
 
 
         GlobalSettingsData gsd = new GlobalSettingsData();
@@ -51,15 +54,15 @@ public class Main extends Application {
 
 
         Items items = new Items();
-        InventoryScreen is = new InventoryScreen(1,items, primaryStage, scene);
-        ShopScreen ss = new ShopScreen(5, items, gsd, primaryStage, scene);
+        InventoryScreen is = new InventoryScreen(1,items, primaryStage, mainMenu);
+        ShopScreen ss = new ShopScreen(5, items, gsd, primaryStage, mainMenu);
         Scene shopScene = ss.generateScene();
 
 
-        primaryStage.setScene(scene);
+        primaryStage.setScene(mainMenu);
         primaryStage.show();
 
-        CampaignMap map = new CampaignMap(items, gsd, primaryStage, scene);
+        CampaignMap map = new CampaignMap(items, gsd, primaryStage, mainMenu);
 
         button_campaign.setOnAction(value -> {
             try {
@@ -90,12 +93,20 @@ public class Main extends Application {
 
         button_endless.setOnAction(value -> {
             try {
-                primaryStage.setScene(new GameScreen().getScene());
+                primaryStage.setScene(new GameScreen(this, is.getValueOfInvSlots(), 1, 10000, 20).getScene());
             } catch (Exception e) {
                 e.printStackTrace();
             }
             primaryStage.show();
         });
+    }
+
+    public void endGame(int points, int goal, int movesLeft) {
+        primaryStage.setScene(new LevelEnd(points, goal, movesLeft, this).getScene());
+    }
+
+    public void loadMainMenu() {
+        primaryStage.setScene(mainMenu);
     }
 
     public static void main(String[] args) {

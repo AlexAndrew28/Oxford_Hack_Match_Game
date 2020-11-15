@@ -2,13 +2,12 @@ package sample;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
@@ -16,7 +15,7 @@ public class LevelEnd {
 
     Scene scene;
 
-    public LevelEnd(int points, int goal, int movesLeft) {
+    public LevelEnd(int points, int goal, int movesLeft, Main main) {
 
 
         VBox layout = new VBox();
@@ -76,9 +75,17 @@ public class LevelEnd {
         layout.setAlignment(Pos.CENTER);
         layout.setPadding(new Insets(50));
 
+//        Rectangle background = new Rectangle(0, 0, layout.getWidth(), layout.getHeight());
+//        background.setFill(Color.gray(0.7));
+//        layout.getChildren().add(background);
+
+        layout.setStyle("-fx-background-color: #B4B4B4;");
+
         scene = new Scene(layout, 800, 800);
 
-        scene.setFill(Color.gray(0.7));
+        toMap.setOnAction(value -> {
+            main.loadMainMenu();
+        });
 
     }
 
