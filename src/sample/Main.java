@@ -12,13 +12,15 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Main menu");
 
+        primaryStage.setMaximized(true);
+
         Button button_endless = new Button("Endless Mode");
         Button button_campaign = new Button("Campaign mode");
         Button button_inventory = new Button("Inventory");
         Button button_shop = new Button("Shop");
-
-        System.out.println("HI ALEX");
-        System.out.println("sup bitches");
+        
+        //System.out.println("HI ALEX");
+        //System.out.println("sup bitches");
 
         button_shop.setOnAction(value ->  {
             System.out.println("button - shop");
@@ -32,10 +34,18 @@ public class Main extends Application {
         mmgp.add(button_shop, 0, 3, 1, 1);
 
         Scene scene = new Scene(mmgp, 200, 100);
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        GlobalSettingsData gsd = new GlobalSettingsData();
 
-        primaryStage.setFullScreen(true);
+
+
+        Items items = new Items();
+        InventoryScreen is = new InventoryScreen(1,items);
+        ShopScreen ss = new ShopScreen(5, items, gsd);
+        Scene scene2 = ss.generateScene();
+
+
+        primaryStage.setScene(scene2);
+        primaryStage.show();
     }
 
     public static void main(String[] args) {
