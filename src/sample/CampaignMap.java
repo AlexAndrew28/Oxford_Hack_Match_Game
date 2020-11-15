@@ -17,31 +17,8 @@ public class CampaignMap {
     public Scene setTheScene() throws Exception {
         GridPane grid = new GridPane();
 
-
-        //image file path:
-        //      C:/Users/Productive/Documents/Coding/Principles of Programming/Oxford_Hack_Match_Game/src/res/portal.png
-        //      C:\Users\Productive\Documents\Coding\Principles of Programming\Oxford_Hack_Match_Game\src\res\portal.png
-
-
         Image back = new Image(new FileInputStream("src\\res\\lands.png"));
         grid.add(new ImageView(back),0,0,20,20);
-
-
-        /*//grid.setStyle("-fx-background-image: url('src/res/backdrop.png')");
-
-        grid.setStyle("-fx-background-image: url('\\src\\res\\background.png')");
-
-        grid.setStyle("-fx-background-repeat: stretch");
-        grid.setStyle("-fx-background-size: 1920 1080");
-        grid.setStyle("-fx-background-position: center center");*/
-
-       /* BackgroundImage myBI= new BackgroundImage(new Image("file:\\src\\res\\background.png",1920,1080,false,true),
-                BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-                BackgroundSize.DEFAULT);
-
-        grid.setBackground(new Background(myBI));*/
-
-
 
         //portal level buttons
         Button buttonPortal_start = new Button("Begin!"); // starting portal (in dinosaur age)
