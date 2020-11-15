@@ -389,11 +389,7 @@ public class CampaignMap {
         });
 
         buttonPortal_start.setOnAction(value -> { // tutorial scene
-            InventoryScreen is = new InventoryScreen(items, primaryStage, scene, gsd);
-            primaryStage.setScene(new GameScreen(main, is.getValueOfInvSlots(), 1, 10000, 20, true).getScene());
-            primaryStage.setMaximized(true);
-            primaryStage.isFullScreen();
-            primaryStage.show();
+
         });
 
         buttonPortal_fantasy.setOnAction(value ->{ // cutscene?
@@ -405,7 +401,11 @@ public class CampaignMap {
         });
 
         buttonPortal_end.setOnAction(value ->{ // endless mode
-
+            InventoryScreen is = new InventoryScreen(items, primaryStage, scene, gsd);
+            primaryStage.setScene(new GameScreen(main, is.getValueOfInvSlots(), 1, 10000, 20, true).getScene());
+            primaryStage.setMaximized(true);
+            primaryStage.isFullScreen();
+            primaryStage.show();
         });
 
 
