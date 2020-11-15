@@ -333,63 +333,63 @@ public class CampaignMap {
         //basic Levels
 
         buttonLevel_1_1.setOnAction(value -> {
-            primaryStage.setScene(new GameScreen(main, main.is.getValueOfInvSlots(), 1, 10000, 20, false).getScene());
+            primaryStage.setScene(new GameScreen(main, main.is.getValueOfInvSlots(), 1, 1000, 10, false).getScene());
             primaryStage.setMaximized(true);
             primaryStage.isFullScreen();
             primaryStage.show();
         });
 
         buttonLevel_1_2.setOnAction(value -> {
-            primaryStage.setScene(new GameScreen(main, main.is.getValueOfInvSlots(), 1, 10000, 20, false).getScene());
+            primaryStage.setScene(new GameScreen(main, main.is.getValueOfInvSlots(), 2, 5000, 20, false).getScene());
             primaryStage.setMaximized(true);
             primaryStage.isFullScreen();
             primaryStage.show();
         });
 
         buttonLevel_1_3.setOnAction(value -> {
-            primaryStage.setScene(new GameScreen(main, main.is.getValueOfInvSlots(), 1, 10000, 20, false).getScene());
+            primaryStage.setScene(new GameScreen(main, main.is.getValueOfInvSlots(), 3, 7500, 20, false).getScene());
             primaryStage.setMaximized(true);
             primaryStage.isFullScreen();
             primaryStage.show();
         });
 
         buttonLevel_2_1.setOnAction(value -> {
-            primaryStage.setScene(new GameScreen(main, main.is.getValueOfInvSlots(), 1, 10000, 20, false).getScene());
+            primaryStage.setScene(new GameScreen(main, main.is.getValueOfInvSlots(), 4, 10000, 20, false).getScene());
             primaryStage.setMaximized(true);
             primaryStage.isFullScreen();
             primaryStage.show();
         });
 
         buttonLevel_2_2.setOnAction(value -> {
-            primaryStage.setScene(new GameScreen(main, main.is.getValueOfInvSlots(), 1, 10000, 20, false).getScene());
+            primaryStage.setScene(new GameScreen(main, main.is.getValueOfInvSlots(), 5, 12500, 20, false).getScene());
             primaryStage.setMaximized(true);
             primaryStage.isFullScreen();
             primaryStage.show();
         });
 
         buttonLevel_2_3.setOnAction(value -> {
-            primaryStage.setScene(new GameScreen(main, main.is.getValueOfInvSlots(), 1, 10000, 20, false).getScene());
+            primaryStage.setScene(new GameScreen(main, main.is.getValueOfInvSlots(), 6, 15000, 20, false).getScene());
             primaryStage.setMaximized(true);
             primaryStage.isFullScreen();
             primaryStage.show();
         });
 
         buttonLevel_3_1.setOnAction(value -> {
-            primaryStage.setScene(new GameScreen(main, main.is.getValueOfInvSlots(), 1, 10000, 20, false).getScene());
+            primaryStage.setScene(new GameScreen(main, main.is.getValueOfInvSlots(), 7, 17500, 20, false).getScene());
             primaryStage.setMaximized(true);
             primaryStage.isFullScreen();
             primaryStage.show();
         });
 
         buttonLevel_3_2.setOnAction(value -> {
-            primaryStage.setScene(new GameScreen(main, main.is.getValueOfInvSlots(), 1, 10000, 20, false).getScene());
+            primaryStage.setScene(new GameScreen(main, main.is.getValueOfInvSlots(), 8, 20000, 20, false).getScene());
             primaryStage.setMaximized(true);
             primaryStage.isFullScreen();
             primaryStage.show();
         });
 
         buttonLevel_3_3.setOnAction(value -> {
-            primaryStage.setScene(new GameScreen(main, main.is.getValueOfInvSlots(), 1, 10000, 20, false).getScene());
+            primaryStage.setScene(new GameScreen(main, main.is.getValueOfInvSlots(), 9, 25000, 20, false).getScene());
             primaryStage.setMaximized(true);
             primaryStage.isFullScreen();
             primaryStage.show();
