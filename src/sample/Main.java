@@ -19,6 +19,7 @@ public class Main extends Application {
     Stage primaryStage;
     Scene mainMenu;
     GlobalSettingsData gsd;
+    InventoryScreen is;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -70,7 +71,7 @@ public class Main extends Application {
         gsd = new GlobalSettingsData();
 
         Items items = new Items();
-        InventoryScreen is = new InventoryScreen(items, primaryStage, mainMenu, gsd);
+        is = new InventoryScreen(items, primaryStage, mainMenu, gsd);
         ShopScreen ss = new ShopScreen(items, gsd, primaryStage, mainMenu);
         Scene shopScene = ss.generateScene();
 
