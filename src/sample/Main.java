@@ -50,10 +50,10 @@ public class Main extends Application {
         Items items = new Items();
         InventoryScreen is = new InventoryScreen(1,items);
         ShopScreen ss = new ShopScreen(5, items, gsd);
-        Scene scene2 = ss.generateScene();
+        Scene shopScene = ss.generateScene();
 
 
-        primaryStage.setScene(scene2);
+        primaryStage.setScene(scene);
         primaryStage.show();
 
         CampaignMap map = new CampaignMap();
@@ -61,6 +61,33 @@ public class Main extends Application {
         button_campaign.setOnAction(value -> {
             try {
                 primaryStage.setScene(map.setTheScene());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            primaryStage.show();
+        });
+
+        button_shop.setOnAction(value -> {
+            try {
+                primaryStage.setScene(shopScene);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            primaryStage.show();
+        });
+
+        button_inventory.setOnAction(value -> {
+            try {
+                primaryStage.setScene(is.generateScene());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            primaryStage.show();
+        });
+
+        button_endless.setOnAction(value -> {
+            try {
+                primaryStage.setScene(new GameScreen().getScene());
             } catch (Exception e) {
                 e.printStackTrace();
             }
