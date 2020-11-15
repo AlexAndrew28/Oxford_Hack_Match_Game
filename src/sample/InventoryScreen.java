@@ -15,15 +15,21 @@ public class InventoryScreen {
     private Item[] valueOfInvSlots = new Item[8];
     private Stage primaryStage;
     private Scene mainMenu;
+    private GlobalSettingsData gsd;
 
-    public InventoryScreen(int era, Items items, Stage primaryStage, Scene scene){
-        this.era = era;
+    public InventoryScreen(Items items, Stage primaryStage, Scene scene, GlobalSettingsData gsd){
         this.items = items;
         this.primaryStage = primaryStage;
         this.mainMenu = scene;
+        this.gsd = gsd;
     }
 
     public Scene generateScene(){
+
+
+
+        era = 1;
+        primaryStage.setMaximized(true);
         Item[] ownedItems = items.getOwnedItems(era);
         GridPane mmgp = new GridPane();
         mmgp.setHgap(10);
@@ -56,7 +62,6 @@ public class InventoryScreen {
             invSlots[i].setOnAction(value ->  {
                 currentInvSlot.set(finalI);
                 invSlots[finalI].setText("Open Slot");
-                //System.out.println(valueOfInvSlots[0]);
                 if (valueOfInvSlots[finalI] != null){
                     valueOfInvSlots[finalI].updateEquipped(false);
                 }
@@ -90,6 +95,14 @@ public class InventoryScreen {
             int column = i % 4;
             int row = (i/4) + 3;
             mmgp.add(newButton, column, row, 1, 1);
+        }
+
+        Item[] slots = getValueOfInvSlots();
+
+        for(int i = 0; i < slots.length; i++){
+            if(slots[i] != null){
+                invSlots[i].setText(slots[i].getName());
+            }
         }
 
         return new Scene(mmgp);

@@ -16,7 +16,6 @@ import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -27,20 +26,34 @@ public class ShopScreen {
     private int era;
     private Items items;
     private GlobalSettingsData gsd;
+    private Stage primaryStage;
+    private Scene mainMenu;
 
-    public ShopScreen(int era, Items items, GlobalSettingsData gsd, Stage primaryStage, Scene scene){
-        this.era = era;
+    public ShopScreen(Items items, GlobalSettingsData gsd, Stage primaryStage, Scene scene){
         this.items = items;
         this.gsd = gsd;
+        this.primaryStage = primaryStage;
+        this.mainMenu = scene;
     }
 
 
     public Scene generateScene() throws FileNotFoundException {
+        era = gsd.getEra();
+        primaryStage.setMaximized(true);
         GridPane mmgp = new GridPane();
-
+        mmgp.setMinWidth(Screen.getPrimary().getBounds().getWidth());
         ScrollBar sc = new ScrollBar();
         sc.setOrientation(Orientation.VERTICAL);
         sc.setMax(360);
+        sc.setPrefHeight(Screen.getPrimary().getBounds().getHeight()-100);
+
+        Button backButton = new Button("Return to main menu");
+        backButton.setOnAction(value ->  {
+            primaryStage.setScene(mainMenu);
+            primaryStage.setMaximized(true);
+        });
+
+        //mmgp.add(backButton, 1, 0, 1,1);
 
         Rectangle backgroundRec = new Rectangle();
         backgroundRec.setX(0);
@@ -59,9 +72,13 @@ public class ShopScreen {
 
         Label desc = new Label("");
         desc.setFont(Font.font("Verdana",20));
-        mmgp.add(desc,11,3,1,1);
+        desc.setMaxWidth(300);
+        desc.setWrapText(true);
+        mmgp.add(desc,11,3,1,3);
 
         Item[] itemsInShop = items.getUnownedItems(era);
+
+        System.out.println(itemsInShop.length);
 
         Label currentGold = new Label(""+gsd.getGold());
         currentGold.setFont(Font.font("Verdana",20));
@@ -78,7 +95,7 @@ public class ShopScreen {
         //Region smallLeftSpacer = new Region();
         //smallLeftSpacer.setMinWidth(10);
         mmgp.add(sc,1,2,1,15);
-
+        mmgp.add(backButton, 1, 0, 1,1);
         sc.valueProperty().addListener(new ChangeListener<Number>() {
             public void changed(ObservableValue<? extends Number> ov,
                                 Number old_val, Number new_val) {
@@ -103,7 +120,9 @@ public class ShopScreen {
                 row = row + 3;
             }
             Label itemName = new Label(itemsInShop[i].getName());
-            itemName.setFont(Font.font("Verdana",20));
+            itemName.setFont(Font.font("Verdana",15));
+            itemName.setWrapText(true);
+            itemName.setMaxWidth(100);
             Image itemIcon = itemsInShop[i].getIcon();
             Button shopItem = new Button(""+itemsInShop[i].getGoldCost());
             shopItem.setFont(Font.font("Verdana",15));
@@ -144,7 +163,6 @@ public class ShopScreen {
                 row = row + 4;
             }
         }
-
 
 
         return new Scene(mmgp);

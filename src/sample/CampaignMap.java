@@ -166,7 +166,7 @@ public class CampaignMap {
         grid.add(button_endless, 0, 3, 1, 1);
 
         button_shop.setOnAction(value -> {
-            ShopScreen ss = new ShopScreen(5, items, gsd, primaryStage, scene);
+            ShopScreen ss = new ShopScreen(items, gsd, primaryStage, scene);
             Scene scene2 = null;
             try {
                 scene2 = ss.generateScene();
