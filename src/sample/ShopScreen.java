@@ -45,7 +45,7 @@ public class ShopScreen {
 
         mmgp.add(new Group(backgroundRec),1,2,10,20);
 
-        Image topBorder = new Image(new FileInputStream("F:\\not important things\\Oxford Hack\\Oxford_Hack_Match_Game\\src\\images\\topBorder.png"));
+        Image topBorder = new Image(new FileInputStream(System.getProperty("user.dir") + "\\src\\images\\topBorder.png"));
         mmgp.add(new ImageView(topBorder),1,0,10,1);
 
         Item[] itemsInShop = items.getUnownedItems(era);
@@ -55,7 +55,7 @@ public class ShopScreen {
         currentGold.setMinWidth(770);
         currentGold.setAlignment(Pos.CENTER_RIGHT);
         mmgp.add(currentGold, 1, 0, 10,1);
-        Image shopBanner = new Image(new FileInputStream("F:\\not important things\\Oxford Hack\\Oxford_Hack_Match_Game\\src\\images\\shopBanner.png"));
+        Image shopBanner = new Image(new FileInputStream(System.getProperty("user.dir") + "\\src\\images\\shopBanner.png"));
         mmgp.add(new ImageView(shopBanner),1,1,10,1);
 
         Region bigLeftSpacer = new Region();
@@ -99,7 +99,7 @@ public class ShopScreen {
                 int currentPlayerGold = gsd.getGold();
                 if(currentPlayerGold >= itemsInShop[finalI].getGoldCost()){
                     try {
-                        Image soldOutIcon = new Image(new FileInputStream("F:\\not important things\\Oxford Hack\\Oxford_Hack_Match_Game\\src\\images\\soldOut.png"));
+                        Image soldOutIcon = new Image(new FileInputStream(System.getProperty("user.dir") + "\\src\\images\\soldOut.png"));
                         mmgp.add(new ImageView(soldOutIcon), finalColumn, finalRow +1,1,1);
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
