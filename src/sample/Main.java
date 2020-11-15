@@ -62,7 +62,7 @@ public class Main extends Application {
         primaryStage.setScene(mainMenu);
         primaryStage.show();
 
-        CampaignMap map = new CampaignMap(items, gsd, primaryStage, mainMenu);
+        CampaignMap map = new CampaignMap(items, gsd, primaryStage, mainMenu, this);
 
         button_campaign.setOnAction(value -> {
             try {

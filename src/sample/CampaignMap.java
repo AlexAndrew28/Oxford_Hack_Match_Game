@@ -13,12 +13,14 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 public class CampaignMap {
+    private Main main;
     private Items items;
     private GlobalSettingsData gsd;
     private Stage primaryStage;
     private Scene scene;
 
-    public CampaignMap(Items items, GlobalSettingsData gsd, Stage primaryStage, Scene scene){
+    public CampaignMap(Items items, GlobalSettingsData gsd, Stage primaryStage, Scene scene, Main main){
+        this.main = main;
         this.items = items;
         this.gsd = gsd;
         this.primaryStage = primaryStage;
@@ -313,16 +315,20 @@ public class CampaignMap {
             primaryStage.show();
         });
 
-        button_inventory.setOnAction(value -> {
+        buttonLevel_1_1.setOnAction(value -> {
             InventoryScreen is = new InventoryScreen(items, primaryStage, scene, gsd);
-            Scene scene2 = null;
-            scene2 = is.generateScene();
+            new GameScreen(main, is.getValueOfInvSlots(), 1, 10000, 20).getScene();
+            primaryStage.setScene(new GameScreen(main, is.getValueOfInvSlots(), 1, 10000, 20).getScene());
 
-            primaryStage.setScene(scene2);
             primaryStage.setMaximized(true);
             primaryStage.isFullScreen();
             primaryStage.show();
         });
+
+
+
+
+
 
         return map;
     }
