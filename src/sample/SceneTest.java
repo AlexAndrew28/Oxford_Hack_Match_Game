@@ -33,7 +33,7 @@ public class SceneTest extends Application {
         primaryStage.setScene(new GameScreen().getScene());
         primaryStage.show();
 //        primaryStage.setFullScreen(true);
-        System.out.println();
+        System.out.println("hi");
     }
 
 //    public static final double W = 200; // canvas dimensions.
