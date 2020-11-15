@@ -12,8 +12,9 @@ public class Item {
     private boolean equipped = false;
     private int goldCost;
     private Image icon;
+    private int powerCost;
 
-    public Item(int itemID, String name, String desc, int era, Boolean owned, int goldCost, Image icon){
+    public Item(int itemID, String name, String desc, int era, Boolean owned, int goldCost, Image icon, int powerCost){
         this.itemID = itemID;
         this.desc = desc;
         this.name = name;
@@ -21,6 +22,7 @@ public class Item {
         this.owned = owned;
         this.goldCost = goldCost;
         this.icon = icon;
+        this.powerCost = powerCost;
     }
 
     public void setOwned(Boolean isOwned){
