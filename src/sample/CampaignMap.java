@@ -7,6 +7,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 import java.io.FileInputStream;
@@ -34,6 +36,8 @@ public class CampaignMap {
         Image back = new Image(new FileInputStream("src\\res\\lands.png"));
         grid.add(new ImageView(back),0,0,20,20);
 
+        Font btnFont = Font.font("default", FontWeight.BOLD, 30);
+
         //portal level buttons
         Button buttonPortal_start = new Button("Begin!"); // starting portal (in dinosaur age)
         Button buttonPortal_fantasy = new Button("Level 2-0"); // 2nd portal (from dinosaurs to fantasy)
@@ -56,6 +60,8 @@ public class CampaignMap {
 
         Button button_shop = new Button("Enter the Shop!");
         Button button_inventory = new Button("View Inventory");
+        button_shop.setFont(btnFont);
+        button_inventory.setFont(btnFont);
 
         //portal button 1
         FileInputStream inputA = new FileInputStream("src/res/round_portalA.png");
@@ -91,34 +97,43 @@ public class CampaignMap {
         //non portal buttons:
         buttonLevel_1_1.setShape(new Circle(100));
         buttonLevel_1_1.setStyle("-fx-background-color: ffffff");
+        buttonLevel_1_1.setFont(btnFont);
         //buttonLevel_1_1.setStyle("-fx-border-color: #000000");
 
         //
         buttonLevel_1_2.setShape(new Circle(10));
         buttonLevel_1_2.setStyle("-fx-background-color: #ffffff");
+        buttonLevel_1_2.setFont(btnFont);
         //
         buttonLevel_1_3.setShape(new Circle(10));
         buttonLevel_1_3.setStyle("-fx-background-color: #ffffff");
+        buttonLevel_1_3.setFont(btnFont);
 
         //level 2
         buttonLevel_2_1.setShape(new Circle(10));
         buttonLevel_2_1.setStyle("-fx-background-color: #ffffff");
+        buttonLevel_2_1.setFont(btnFont);
         //
         buttonLevel_2_2.setShape(new Circle(10));
         buttonLevel_2_2.setStyle("-fx-background-color: #ffffff");
+        buttonLevel_2_2.setFont(btnFont);
         //
         buttonLevel_2_3.setShape(new Circle(10));
         buttonLevel_2_3.setStyle("-fx-background-color: #ffffff");
+        buttonLevel_2_3.setFont(btnFont);
 
         //level 3
         buttonLevel_3_1.setShape(new Circle(10));
         buttonLevel_3_1.setStyle("-fx-background-color: #ffffff");
+        buttonLevel_3_1.setFont(btnFont);
         //
         buttonLevel_3_2.setShape(new Circle(10));
         buttonLevel_3_2.setStyle("-fx-background-color: #ffffff");
+        buttonLevel_3_2.setFont(btnFont);
         //
         buttonLevel_3_3.setShape(new Circle(10));
         buttonLevel_3_3.setStyle("-fx-background-color: #ffffff");
+        buttonLevel_3_3.setFont(btnFont);
 
 
         ColumnConstraints column0 = new ColumnConstraints();
@@ -164,8 +179,10 @@ public class CampaignMap {
 
         //set positions of other buttons
 
-        grid.add(button_shop, 0, 2, 1, 1);
-        grid.add(button_inventory, 0, 3, 1, 1);
+//        grid.add(button_shop, 0, 2, 1, 1);
+//        grid.add(button_inventory, 0, 3, 1, 1);
+        grid.add(button_shop, 1, 4, 1, 1);
+        grid.add(button_inventory, 2, 4, 1, 1);
 
 
         Scene map = new Scene(grid, 1920, 1080);
