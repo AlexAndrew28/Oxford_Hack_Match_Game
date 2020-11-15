@@ -14,7 +14,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("Main menu");
+        primaryStage.setTitle("Time Swap");
 
         Button button_endless = new Button("Endless Mode");
         Button button_campaign = new Button("Campaign mode");
@@ -54,19 +54,6 @@ public class Main extends Application {
             }
             primaryStage.show();
         });
-
-        button_test.setOnAction(value ->  {
-            try {
-                map.test(primaryStage);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-
-
-
-
-
     }
 
     public static void main(String[] args) {

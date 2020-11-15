@@ -25,19 +25,27 @@ public class CampaignMap {
 
 
 
-        /*BackgroundImage myBI= new BackgroundImage(new Image("file:\\src\\res\\background.png",1920,1080,false,true),
-                BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-                BackgroundSize.DEFAULT);
 
-         */
+
+
 
         GridPane grid = new GridPane();
 
-        //grid.setStyle("-fx-background-image: url('src/res/backdrop.png')");
+
+
+        /*//grid.setStyle("-fx-background-image: url('src/res/backdrop.png')");
 
         grid.setStyle("-fx-background-image: url('\\src\\res\\background.png')");
 
-        //grid.setBackground(new Background(myBI));
+        grid.setStyle("-fx-background-repeat: stretch");
+        grid.setStyle("-fx-background-size: 1920 1080");
+        grid.setStyle("-fx-background-position: center center");*/
+
+        BackgroundImage myBI= new BackgroundImage(new Image("file:\\src\\res\\background.png",1920,1080,false,true),
+                BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+                BackgroundSize.DEFAULT);
+
+        grid.setBackground(new Background(myBI));
 
         //portal level buttons
         Button buttonPortal_start = new Button("Begin!"); // starting portal (in dinosaur age)
@@ -79,36 +87,37 @@ public class CampaignMap {
         buttonPortal_end.setStyle("-fx-background-color: #f4f4f4");
 
 
-
         //non portal buttons:
-        buttonLevel_1_1.setShape(new Circle(50));
-        buttonLevel_1_1.setStyle("-fx-background-color: #f4f4f4");
+        buttonLevel_1_1.setShape(new Circle(100));
+        buttonLevel_1_1.setStyle("-fx-background-color: ffffff");
+        //buttonLevel_1_1.setStyle("-fx-border-color: #000000");
+
         //
         buttonLevel_1_2.setShape(new Circle(10));
-        buttonLevel_1_2.setStyle("-fx-background-color: #f4f4f4");
+        buttonLevel_1_2.setStyle("-fx-background-color: #ffffff");
         //
         buttonLevel_1_3.setShape(new Circle(10));
-        buttonLevel_1_3.setStyle("-fx-background-color: #f4f4f4");
+        buttonLevel_1_3.setStyle("-fx-background-color: #ffffff");
 
         //level 2
         buttonLevel_2_1.setShape(new Circle(10));
-        buttonLevel_2_1.setStyle("-fx-background-color: #f4f4f4");
+        buttonLevel_2_1.setStyle("-fx-background-color: #ffffff");
         //
         buttonLevel_2_2.setShape(new Circle(10));
-        buttonLevel_2_2.setStyle("-fx-background-color: #f4f4f4");
+        buttonLevel_2_2.setStyle("-fx-background-color: #ffffff");
         //
         buttonLevel_2_3.setShape(new Circle(10));
-        buttonLevel_2_3.setStyle("-fx-background-color: #f4f4f4");
+        buttonLevel_2_3.setStyle("-fx-background-color: #ffffff");
 
         //level 3
         buttonLevel_3_1.setShape(new Circle(10));
-        buttonLevel_3_1.setStyle("-fx-background-color: #f4f4f4");
+        buttonLevel_3_1.setStyle("-fx-background-color: #ffffff");
         //
         buttonLevel_3_2.setShape(new Circle(10));
-        buttonLevel_3_2.setStyle("-fx-background-color: #f4f4f4");
+        buttonLevel_3_2.setStyle("-fx-background-color: #ffffff");
         //
         buttonLevel_3_3.setShape(new Circle(10));
-        buttonLevel_3_3.setStyle("-fx-background-color: #f4f4f4");
+        buttonLevel_3_3.setStyle("-fx-background-color: #ffffff");
 
 
         ColumnConstraints column0 = new ColumnConstraints();
@@ -119,9 +128,19 @@ public class CampaignMap {
         column2.setPercentWidth(20);
         ColumnConstraints column3 = new ColumnConstraints();
         column3.setPercentWidth(20);
-        ColumnConstraints column4 = new ColumnConstraints();
-        column4.setPercentWidth(0);
-        grid.getColumnConstraints().addAll(column0, column1, column2, column3); // each get 1/3 of width
+        grid.getColumnConstraints().addAll(column0, column1, column2, column3);
+
+        RowConstraints row0 = new RowConstraints();
+        row0.setPercentHeight(20);
+        RowConstraints row1 = new RowConstraints();
+        row1.setPercentHeight(20);
+        RowConstraints row2 = new RowConstraints();
+        row2.setPercentHeight(20);
+        RowConstraints row3 = new RowConstraints();
+        row3.setPercentHeight(20);
+        RowConstraints row4 = new RowConstraints();
+        row4.setPercentHeight(0);
+        grid.getRowConstraints().addAll(row0, row1, row2, row3); // each get 1/3 of width
 
         //set positions of portal buttons
         grid.add(buttonPortal_start, 1, 0, 1, 1);//[ i:  offset x][ i1:  offset y][ i2:  size x][ i3:  size y]
@@ -147,29 +166,31 @@ public class CampaignMap {
         grid.add(button_shop, 0, 2, 1, 1);
         grid.add(button_endless, 0, 3, 1, 1);
 
-        Scene map = new Scene(grid, 400, 200);
+        Scene map = new Scene(grid, 1920, 1080);
 
         //actions
 
         buttonLevel_1_1.hoverProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean show) ->  {
             if (show) {
                 buttonLevel_1_1.setStyle("-fx-background-color: #c4c4c4");
+                //buttonLevel_1_1.setStyle("-fx-border-color: #000000");
             } else {
-                buttonLevel_1_1.setStyle("-fx-background-color: #f4f4f4");
+                buttonLevel_1_1.setStyle("-fx-background-color: #ffffff");
+                //buttonLevel_1_1.setStyle("-fx-border-color: #000000");
             }
         });
         buttonLevel_1_2.hoverProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean show) ->  {
             if (show) {
                 buttonLevel_1_2.setStyle("-fx-background-color: #c4c4c4");
             } else {
-                buttonLevel_1_2.setStyle("-fx-background-color: #f4f4f4");
+                buttonLevel_1_2.setStyle("-fx-background-color: #ffffff");
             }
         });
         buttonLevel_1_3.hoverProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean show) ->  {
             if (show) {
                 buttonLevel_1_3.setStyle("-fx-background-color: #c4c4c4");
             } else {
-                buttonLevel_1_3.setStyle("-fx-background-color: #f4f4f4");
+                buttonLevel_1_3.setStyle("-fx-background-color: #ffffff");
             }
         });
 
@@ -177,21 +198,21 @@ public class CampaignMap {
             if (show) {
                 buttonLevel_2_1.setStyle("-fx-background-color: #c4c4c4");
             } else {
-                buttonLevel_2_1.setStyle("-fx-background-color: #f4f4f4");
+                buttonLevel_2_1.setStyle("-fx-background-color: #ffffff");
             }
         });
         buttonLevel_2_2.hoverProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean show) ->  {
             if (show) {
                 buttonLevel_2_2.setStyle("-fx-background-color: #c4c4c4");
             } else {
-                buttonLevel_2_2.setStyle("-fx-background-color: #f4f4f4");
+                buttonLevel_2_2.setStyle("-fx-background-color: #ffffff");
             }
         });
         buttonLevel_2_3.hoverProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean show) ->  {
             if (show) {
                 buttonLevel_2_3.setStyle("-fx-background-color: #c4c4c4");
             } else {
-                buttonLevel_2_3.setStyle("-fx-background-color: #f4f4f4");
+                buttonLevel_2_3.setStyle("-fx-background-color: #ffffff");
             }
         });
 
@@ -199,21 +220,21 @@ public class CampaignMap {
             if (show) {
                 buttonLevel_3_1.setStyle("-fx-background-color: #c4c4c4");
             } else {
-                buttonLevel_3_1.setStyle("-fx-background-color: #f4f4f4");
+                buttonLevel_3_1.setStyle("-fx-background-color: #ffffff");
             }
         });
         buttonLevel_3_2.hoverProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean show) ->  {
             if (show) {
                 buttonLevel_3_2.setStyle("-fx-background-color: #c4c4c4");
             } else {
-                buttonLevel_3_2.setStyle("-fx-background-color: #f4f4f4");
+                buttonLevel_3_2.setStyle("-fx-background-color: #ffffff");
             }
         });
         buttonLevel_3_3.hoverProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean show) ->  {
             if (show) {
                 buttonLevel_3_3.setStyle("-fx-background-color: #c4c4c4");
             } else {
-                buttonLevel_3_3.setStyle("-fx-background-color: #f4f4f4");
+                buttonLevel_3_3.setStyle("-fx-background-color: #ffffff");
             }
         });
 
