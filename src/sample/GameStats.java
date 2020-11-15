@@ -9,7 +9,7 @@ public class GameStats {
     public static int baseValue = 100;
     public static double bigMatchMult = 2;
     public static int accBaseVal = 5;
-    public static int powerBaseVal = 5;
+    public static int powerBaseVal = 1;
     public static int stdWeight = 50;
     public static int medWeight = 30;
     public static int lowWeight = 20;
