@@ -70,8 +70,13 @@ public class SwapLevel {
     private void printGrid() {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                System.out.println(tileGrid[i][j].toString());
+                if (tileGrid[i][j] != null) {
+                    System.out.print(tileGrid[i][j].toString());
+                } else
+                    System.out.print("NULL");
+                System.out.print(", ");
             }
+            System.out.println();
         }
     }
 
@@ -305,9 +310,10 @@ public class SwapLevel {
                 tileGrid[i][j] = randTable[r.nextInt(randTable.length)];
             }
         }
-        printGrid();
+//        printGrid();
+        copyGrid();
         simulate();
-        printGrid();
+//        printGrid();
     }
 
     private void consume(Tiles tile, boolean score) {

@@ -73,7 +73,7 @@ public class LevelEnd {
         Button toMap = new Button("Continue");
         retry.setFont(Font.font(25));
         toMap.setFont(Font.font(25));
-        buttons.getChildren().add(retry);
+//        buttons.getChildren().add(retry);
         buttons.getChildren().add(toMap);
 
         layout.getChildren().add(buttons);
@@ -90,7 +90,7 @@ public class LevelEnd {
         scene = new Scene(layout, 800, 800);
 
         toMap.setOnAction(value -> {
-            main.loadMainMenu();
+            main.loadCampaignMap();
         });
 
     }
