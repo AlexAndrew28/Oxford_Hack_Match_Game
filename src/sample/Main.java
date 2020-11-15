@@ -10,6 +10,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.awt.event.MouseEvent;
@@ -116,6 +117,9 @@ public class Main extends Application {
             }
             primaryStage.show();
         });
+        primaryStage.setWidth(Screen.getPrimary().getBounds().getWidth());
+        primaryStage.setHeight(Screen.getPrimary().getBounds().getHeight());
+        primaryStage.setMaximized(true);
     }
 
     public void endGame(int points, int goal, int movesLeft, boolean endless) {

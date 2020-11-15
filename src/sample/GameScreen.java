@@ -21,6 +21,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.Screen;
 import javafx.util.Duration;
 
 import static java.lang.Math.min;
@@ -55,6 +56,8 @@ public class GameScreen {
         wrapper.getChildren().add(outerLayout);
         wrapper.getChildren().add(back);
         StackPane.setAlignment(back, Pos.BOTTOM_CENTER);
+//        wrapper.setMinWidth(Screen.getPrimary().getBounds().getWidth());
+//        wrapper.setMinHeight(Screen.getPrimary().getBounds().getHeight());
         gameScene = new Scene(wrapper);
         gameScene.setFill(Color.gray(0.7));
 
@@ -73,13 +76,15 @@ public class GameScreen {
         SwapLevel levelData;
         Canvas stats;
         Canvas items;
+        Item preview;
 
         public InfoArea(SwapLevel levelData) {
 //            setStyle("-fx-border-color: black");
+            preview = null;
             setAlignment(Pos.CENTER);
             this.levelData = levelData;
-            stats = new Canvas(400, 64*9-200);
-            items = new Canvas(400, 250);
+            stats = new Canvas(400, 250);
+            items = new Canvas(400, 300);
             draw();
             getChildren().add(stats);
             getChildren().add(items);
@@ -87,11 +92,11 @@ public class GameScreen {
             items.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 public void handle(MouseEvent event) {
                     int step = (int) (items.getWidth()-10*2)/4;
-                    if (event.getX() >= 10 && event.getY() >= 10 && event.getX() < 10+4*step && event.getY() < 10 + 2*step) {
+                    if (event.getX() >= 10 && event.getY() >= 10 + 50 && event.getX() < 10+4*step && event.getY() < 10 + 2*step + 50) {
                         System.out.println((int)(event.getX() - 10)/step);
-                        System.out.println((int)((event.getY() - 10)/step)*4);
+                        System.out.println((int)((event.getY() - 10 - 50)/step)*4);
 
-                        int i = ((int)((event.getX() - 10)/step) + (int)((event.getY() - 10)/step)*4);
+                        int i = ((int)((event.getX() - 10)/step) + (int)((event.getY() - 10 - 50)/step)*4);
                         if (invitems[i] != null && !usedItem[i] && levelData.getPower() >= invitems[i].getPowerCost()) {
                             levelData.useItem(invitems[i].getItemID(), invitems[i].getPowerCost());
                             usedItem[i] = true;
@@ -101,6 +106,23 @@ public class GameScreen {
                     }
                 }
             });
+            items.setOnMouseMoved(new EventHandler<MouseEvent>() {
+                public void handle(MouseEvent event) {
+                    preview = null;
+                    int step = (int) (items.getWidth()-10*2)/4;
+                    if (event.getX() >= 10 && event.getY() >= 10 + 50 && event.getX() < 10+4*step && event.getY() < 10 + 2*step + 50) {
+                        System.out.print((int)(event.getX() - 10)/step + " ");
+                        System.out.println((int)((event.getY() - 10 - 50)/step)*4);
+                        int i = ((int)((event.getX() - 10)/step) + (int)((event.getY() - 10 - 50)/step)*4);
+                        if (i >= 0 && invitems[i] != null) {
+                            System.out.println("setting preview");
+                            preview = invitems[i];
+                        }
+                    }
+                    draw();
+                }
+            });
+
         }
 
         public void draw() {
@@ -158,22 +180,32 @@ public class GameScreen {
 
 
             int itemGap = 2;
+            int yshift = 50;
             gc = items.getGraphicsContext2D();
+
             gc.clearRect(0,0, items.getWidth(), items.getHeight());
             gc.setFill(Color.rgb(210, 210, 255));
             gc.fillRoundRect(0,-100, items.getWidth(), items.getHeight() + 100, 20, 20);
 
+            if (preview != null) {
+                gc.setFill(Color.BLACK);
+                gc.setFont(Font.font(20));
+                gc.fillText(preview.getName(), 10, 30);
+                gc.fillText("Power: " + preview.getPowerCost(), 200, 30);
+                gc.fillText(preview.getDesc(), 10, 60, 380);
+            }
+
             gc.setFill(Color.rgb(69, 69, 111));
             int step = (int) (items.getWidth()-buffer*2)/4;
             for (int i = 0; i < 8; i++) {
-                gc.fillOval(buffer + (i%4)*step + itemGap, (i/4)*step + step, step - 2*itemGap, step/4);
+                gc.fillOval(buffer + (i%4)*step + itemGap, (i/4)*step + step + yshift, step - 2*itemGap, step/4);
                 if (invitems[i] != null) {
                     if (usedItem[i]) {
                         gc.setGlobalAlpha(0.5);
-                        gc.drawImage(invitems[i].getIcon(), buffer + (i % 4) * step + itemGap, buffer + (i / 4) * step, step, step);
+                        gc.drawImage(invitems[i].getIcon(), buffer + (i % 4) * step + itemGap, buffer + (i / 4) * step + yshift, step, step);
                         gc.setGlobalAlpha(1);
                     } else {
-                        gc.drawImage(invitems[i].getIcon(), buffer + (i % 4) * step + itemGap, buffer + (i / 4) * step, step, step);
+                        gc.drawImage(invitems[i].getIcon(), buffer + (i % 4) * step + itemGap, buffer + (i / 4) * step + yshift, step, step);
                     }
 
                 }
