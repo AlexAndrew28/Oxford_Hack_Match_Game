@@ -29,9 +29,15 @@ import static java.lang.Math.min;
 public class GameScreen {
 
     Scene gameScene;
+    Main main;
+    Item[] invitems;
+    boolean[] usedItem;
 
-    public GameScreen() {
-        SwapLevel levelData = new SwapLevel(1, 10000, 20);
+    public GameScreen(Main main, Item[] items, int level, int goal, int moves) {
+        this.main = main;
+        this.invitems = items;
+        usedItem = new boolean[8];
+        SwapLevel levelData = new SwapLevel(level, goal, moves);
         InfoArea infoArea = new InfoArea(levelData);
         TileArea tiles = new TileArea(levelData, infoArea);
 
@@ -60,11 +66,28 @@ public class GameScreen {
             setAlignment(Pos.CENTER);
             this.levelData = levelData;
             stats = new Canvas(400, 64*9-200);
-            items = new Canvas(400, 200);
+            items = new Canvas(400, 300);
             draw();
             getChildren().add(stats);
             getChildren().add(items);
             draw();
+            items.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                public void handle(MouseEvent event) {
+                    int step = (int) (items.getWidth()-10*2)/4;
+                    if (event.getX() >= 10 && event.getY() >= 10 && event.getX() < 10+4*step && event.getY() < 10 + 2*step) {
+                        System.out.println((int)(event.getX() - 10)/step);
+                        System.out.println((int)((event.getY() - 10)/step)*4);
+
+                        int i = ((int)((event.getX() - 10)/step) + (int)((event.getY() - 10)/step)*4);
+                        if (invitems[i] != null && !usedItem[i] && levelData.getPower() >= invitems[i].getPowerCost()) {
+                            levelData.useItem(invitems[i].getItemID(), invitems[i].getPowerCost());
+                            usedItem[i] = true;
+                            System.out.println("using item " + i);
+                            draw();
+                        }
+                    }
+                }
+            });
         }
 
         public void draw() {
@@ -122,9 +145,19 @@ public class GameScreen {
             gc.fillRoundRect(0,-100, items.getWidth(), items.getHeight() + 100, 20, 20);
 
             gc.setFill(Color.rgb(69, 69, 111));
-            int step = (400-buffer*2)/4;
+            int step = (int) (items.getWidth()-buffer*2)/4;
             for (int i = 0; i < 8; i++) {
-                gc.fillOval(buffer + (i%4)*step + itemGap, buffer + (i/4)*step, step - 2*itemGap, step/4);
+                gc.fillOval(buffer + (i%4)*step + itemGap, (i/4)*step + step, step - 2*itemGap, step/4);
+                if (invitems[i] != null) {
+                    if (usedItem[i]) {
+                        gc.setGlobalAlpha(0.5);
+                        gc.drawImage(invitems[i].getIcon(), buffer + (i % 4) * step + itemGap, buffer + (i / 4) * step, step, step);
+                        gc.setGlobalAlpha(1);
+                    } else {
+                        gc.drawImage(invitems[i].getIcon(), buffer + (i % 4) * step + itemGap, buffer + (i / 4) * step, step, step);
+                    }
+
+                }
             }
 
         }
@@ -260,6 +293,9 @@ public class GameScreen {
                     ymod = new int[8][8];
                     draw(canvas);
                     infoArea.draw();
+                    if (levelData.getPoints() >= levelData.getGoal() || levelData.getMoves() == 0){
+                        main.endGame(levelData.getPoints(), levelData.getGoal(), levelData.getMoves());
+                    }
 //                    System.out.println("YOU RELEASED?");
                 }
             });

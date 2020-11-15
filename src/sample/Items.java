@@ -110,6 +110,8 @@ public class Items {
         return eraItems.toArray(new Item[0]);
     }
 
+
+
     public Item[] getUnownedItems(int currentEra){
         ArrayList<Item> eraItems = new ArrayList<Item>();
         for(int i = 0; i < allItems.size(); i++){

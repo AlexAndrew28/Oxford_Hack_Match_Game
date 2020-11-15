@@ -40,6 +40,17 @@ public class SwapLevel {
 //        printGrid();
     }
 
+    private void resetWeights() {
+        Tiles.red.setWeight(GameStats.stdWeight);
+        Tiles.cyan.setWeight(GameStats.stdWeight);
+        Tiles.orange.setWeight(GameStats.stdWeight);
+        Tiles.green.setWeight(GameStats.stdWeight);
+        Tiles.power.setWeight(GameStats.medWeight);
+        Tiles.accelerate.setWeight(GameStats.medWeight);
+        Tiles.extraMove.setWeight(GameStats.medWeight);
+        Tiles.decelerate.setWeight(GameStats.lowWeight);
+    }
+
     private void copyGrid() {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -328,7 +339,7 @@ public class SwapLevel {
         }
         for (int i = 0; i < amount && tokens.size() > 0; i++) {
             int rand = r.nextInt(tokens.size());
-            tileGrid[(int) tokens.get(i).getX()][(int) tokens.get(i).getY()] = to;
+            tileGrid[(int) tokens.get(rand).getX()][(int) tokens.get(rand).getY()] = to;
             tokens.remove(rand);
         }
     }
@@ -371,7 +382,8 @@ public class SwapLevel {
         return evaluate;
     }
 
-    public void useItem(int id) {
+    public void useItem(int id, int cost) {
+        power -= cost;
         switch(id) {
             case 0:
                 Tiles.decelerate.setWeight(Tiles.decelerate.getWeight()/2);
@@ -456,6 +468,7 @@ public class SwapLevel {
                 break;
 
         }
+        genRandArray();
     }
 
     public Tiles[][] getTileGrid() {

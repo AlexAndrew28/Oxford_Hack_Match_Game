@@ -31,11 +31,11 @@ public class SceneTest extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("Test");
-        primaryStage.setScene(new LevelEnd(500, 500, 10).getScene());
-        primaryStage.show();
-//        primaryStage.setFullScreen(true);
-        System.out.println("hi");
+//        primaryStage.setTitle("Test");
+//        primaryStage.setScene(new LevelEnd(500, 500, 10).getScene());
+//        primaryStage.show();
+////        primaryStage.setFullScreen(true);
+//        System.out.println("hi");
 
 //        Popup popup = new Popup();
 //        Label label = new Label("popup test");

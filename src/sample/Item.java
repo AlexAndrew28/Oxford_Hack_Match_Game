@@ -61,5 +61,7 @@ public class Item {
         return icon;
     }
 
+    public int getItemID() { return itemID; }
 
+    public int getPowerCost() { return powerCost; }
 }
