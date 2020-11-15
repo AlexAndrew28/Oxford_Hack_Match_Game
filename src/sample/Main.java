@@ -6,7 +6,10 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -36,6 +39,7 @@ public class Main extends Application {
         Button button_campaign = new Button("Play");
         Button button_inventory = new Button("Inventory");
         Button button_shop = new Button("Shop");
+        Button tutorial = new Button("Tutorial");
 //        Button button_test = new Button("Test");
 
         Font btnFont = Font.font(30);
@@ -43,13 +47,19 @@ public class Main extends Application {
         button_campaign.setFont(btnFont);
         button_inventory.setFont(btnFont);
         button_shop.setFont(btnFont);
+        tutorial.setFont(btnFont);
 //        button_test.setFont(btnFont);
 
         button_endless.setMinWidth(300);
         button_campaign.setMinWidth(300);
         button_inventory.setMinWidth(300);
         button_shop.setMinWidth(300);
+        tutorial.setMinWidth(300);
 //        button_test.setMinWidth(300);
+
+        tutorial.setOnAction(value ->  {
+            loadTutorial();
+        });
 
         button_shop.setOnAction(value ->  {
             System.out.println("button - shop");
@@ -61,6 +71,7 @@ public class Main extends Application {
 
         menuBox.getChildren().add(title);
         menuBox.getChildren().add(button_campaign);
+        menuBox.getChildren().add(tutorial);
 //        menuBox.getChildren().add(button_endless);
 //        menuBox.getChildren().add(button_inventory);
 //        menuBox.getChildren().add(button_shop);
@@ -130,6 +141,20 @@ public class Main extends Application {
     public void loadMainMenu() {
         primaryStage.setScene(mainMenu);
         primaryStage.setMaximized(true);
+    }
+
+    public void loadTutorial() {
+        Image tutorial = new Image("file:" + System.getProperty("user.dir") + "\\src\\images\\timeSwapTutorial.png");
+        StackPane pane = new StackPane();
+        Button back = new Button("Back");
+        back.setFont(Font.font(30));
+        pane.getChildren().add(new ImageView(tutorial));
+        pane.getChildren().add(back);
+        StackPane.setAlignment(back, Pos.TOP_RIGHT);
+        back.setOnAction(value -> {
+            loadMainMenu();
+        });
+        primaryStage.setScene(new Scene(pane));
     }
 
     public void loadCampaignMap() {
