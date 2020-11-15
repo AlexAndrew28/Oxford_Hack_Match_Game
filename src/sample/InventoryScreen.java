@@ -11,6 +11,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class InventoryScreen {
     private int era;
     private Items items;
+    private Item[] valueOfInvSlots = new Item[8];
 
     public InventoryScreen(int era, Items items){
         this.era = era;
@@ -25,7 +26,7 @@ public class InventoryScreen {
         AtomicInteger currentInvSlot = new AtomicInteger(0);
 
         Button[] invSlots = new Button[8];
-        Item[] valueOfInvSlots = new Item[8];
+
 
         Label description = new Label("");
         description.setMinWidth(300);
@@ -41,8 +42,10 @@ public class InventoryScreen {
             invSlots[i].setOnAction(value ->  {
                 currentInvSlot.set(finalI);
                 invSlots[finalI].setText("Open Slot");
-                System.out.println(valueOfInvSlots[0]);
-                valueOfInvSlots[finalI].updateEquipped(false);
+                //System.out.println(valueOfInvSlots[0]);
+                if (valueOfInvSlots[finalI] != null){
+                    valueOfInvSlots[finalI].updateEquipped(false);
+                }
                 valueOfInvSlots[finalI] = null;
             });
             int column = i % 4;
@@ -78,4 +81,7 @@ public class InventoryScreen {
         return new Scene(mmgp);
     }
 
+    public Item[] getValueOfInvSlots() {
+        return valueOfInvSlots;
+    }
 }

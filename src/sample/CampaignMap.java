@@ -10,8 +10,18 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 public class CampaignMap {
+    private Items items;
+    private GlobalSettingsData gsd;
+    private Stage primaryStage;
+
+    public CampaignMap(Items items, GlobalSettingsData gsd, Stage primaryStage){
+        this.items = items;
+        this.gsd = gsd;
+        this.primaryStage = primaryStage;
+    }
 
 
     public Scene setTheScene() throws Exception {
@@ -152,6 +162,21 @@ public class CampaignMap {
         grid.add(button_non, 0, 1, 1, 1);
         grid.add(button_shop, 0, 2, 1, 1);
         grid.add(button_endless, 0, 3, 1, 1);
+
+        button_shop.setOnAction(value -> {
+            ShopScreen ss = new ShopScreen(5, items, gsd);
+            Scene scene2 = null;
+            try {
+                scene2 = ss.generateScene();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            primaryStage.setScene(scene2);
+            primaryStage.setMaximized(true);
+            primaryStage.isFullScreen();
+            primaryStage.show();
+        });
 
         Scene map = new Scene(grid, 1920, 1080);
 

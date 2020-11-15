@@ -1,10 +1,14 @@
 package sample;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -33,11 +37,15 @@ public class ShopScreen {
     public Scene generateScene() throws FileNotFoundException {
         GridPane mmgp = new GridPane();
 
+        ScrollBar sc = new ScrollBar();
+        sc.setOrientation(Orientation.VERTICAL);
+        sc.setMax(360);
+
         Rectangle backgroundRec = new Rectangle();
         backgroundRec.setX(0);
         backgroundRec.setY(0);
         backgroundRec.setWidth(800);
-        backgroundRec.setHeight(Screen.getPrimary().getBounds().getHeight()-40);
+        backgroundRec.setHeight(Screen.getPrimary().getBounds().getHeight()*2);
         backgroundRec.setFill(Color.DARKGRAY);
 
         backgroundRec.setArcWidth(20);
@@ -47,6 +55,10 @@ public class ShopScreen {
 
         Image topBorder = new Image(new FileInputStream(System.getProperty("user.dir") + "\\src\\images\\topBorder.png"));
         mmgp.add(new ImageView(topBorder),1,0,10,1);
+
+        Label desc = new Label("");
+        desc.setFont(Font.font("Verdana",20));
+        mmgp.add(desc,11,3,1,1);
 
         Item[] itemsInShop = items.getUnownedItems(era);
 
@@ -62,12 +74,17 @@ public class ShopScreen {
         bigLeftSpacer.setMinWidth((Screen.getPrimary().getBounds().getWidth()/2) - 400);
         mmgp.add(bigLeftSpacer, 0, 0, 1, 1);
 
-        Region smallLeftSpacer = new Region();
-        smallLeftSpacer.setMinWidth(10);
-        mmgp.add(smallLeftSpacer,1,2,1,1);
+        //Region smallLeftSpacer = new Region();
+        //smallLeftSpacer.setMinWidth(10);
+        mmgp.add(sc,1,2,1,15);
 
-        //mmgp.add(new Group(recLeft),0,0,1,50);
-        //mmgp.add(new Group(recRight),11,0,1,50);
+        sc.valueProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> ov,
+                                Number old_val, Number new_val) {
+                mmgp.setLayoutY(-new_val.doubleValue());
+            }
+        });
+
 
 
         int currentItemEra = 1;
@@ -111,6 +128,9 @@ public class ShopScreen {
                 }
 
             });
+            shopItem.hoverProperty().addListener((event)->
+                    desc.setText(itemsInShop[finalI].getDesc())
+            );
 
             mmgp.add(itemName,column,row,1,1);
             mmgp.add(new ImageView(itemIcon),column,row+1,1,1);
