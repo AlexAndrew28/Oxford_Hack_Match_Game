@@ -15,7 +15,7 @@ public class LevelEnd {
 
     Scene scene;
 
-    public LevelEnd(int points, int goal, int movesLeft, Main main) {
+    public LevelEnd(int points, int goal, int movesLeft, Main main, boolean endless) {
 
 
         VBox layout = new VBox();
@@ -26,6 +26,8 @@ public class LevelEnd {
         } else { // fail
             title.setText("Failure");
         }
+        if (endless)
+            title.setText("Endless Mode");
         layout.getChildren().add(title);
         GridPane results = new GridPane();
         results.setPrefSize(600, 300);
@@ -52,10 +54,13 @@ public class LevelEnd {
 
         results.add(pointResult, 0, 0);
         results.add(pointNum, 1, 0);
-        results.add(moveText, 0, 1);
-        results.add(moveNum, 1, 1);
-        results.add(goldText, 0, 2);
-        results.add(goldNum, 1, 2);
+        if (!endless) {
+            results.add(moveText, 0, 1);
+            results.add(moveNum, 1, 1);
+            results.add(goldText, 0, 2);
+            results.add(goldNum, 1, 2);
+        }
+
 
         layout.getChildren().add(results);
 

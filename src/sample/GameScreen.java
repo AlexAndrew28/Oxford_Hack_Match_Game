@@ -32,11 +32,13 @@ public class GameScreen {
     Main main;
     Item[] invitems;
     boolean[] usedItem;
+    boolean endless;
 
-    public GameScreen(Main main, Item[] items, int level, int goal, int moves) {
+    public GameScreen(Main main, Item[] items, int level, int goal, int moves, boolean endless) {
         this.main = main;
         this.invitems = items;
         usedItem = new boolean[8];
+        this.endless = endless;
         SwapLevel levelData = new SwapLevel(level, goal, moves);
         InfoArea infoArea = new InfoArea(levelData);
         TileArea tiles = new TileArea(levelData, infoArea);
@@ -122,6 +124,9 @@ public class GameScreen {
             int barHeight = 64;
             int fillAmount = (int) Math.min((stats.getWidth() - (buffer)*2) * levelData.getPoints() / levelData.getGoal(), (stats.getWidth() - (buffer)*2));
 
+            if (endless)
+                fillAmount = (int) (stats.getWidth() - (buffer)*2);
+
             gc.setStroke(Color.BLACK);
             gc.setFill(Color.rgb(210,210,255));
             gc.fillRoundRect(buffer, 170, stats.getWidth() - (buffer)*2, barHeight, (barHeight)/2, (barHeight)/2);
@@ -134,7 +139,10 @@ public class GameScreen {
             gc.setLineWidth(8);
             gc.strokeRoundRect(buffer - 5, 170 - 5, stats.getWidth() - buffer*2 + 10, barHeight + 10, barHeight/2+10, barHeight/2+10);
             gc.setStroke(Color.BLACK);
-            gc.fillText(Integer.toString(levelData.getPoints()) + "/" + Integer.toString(levelData.getGoal()), stats.getWidth()/2, 170 + barHeight/2);
+            if (endless)
+                gc.fillText(Integer.toString(levelData.getPoints()) , stats.getWidth()/2, 170 + barHeight/2);
+            else
+                gc.fillText(Integer.toString(levelData.getPoints()) + "/" + Integer.toString(levelData.getGoal()), stats.getWidth()/2, 170 + barHeight/2);
 
 
 
@@ -293,9 +301,16 @@ public class GameScreen {
                     ymod = new int[8][8];
                     draw(canvas);
                     infoArea.draw();
-                    if (levelData.getPoints() >= levelData.getGoal() || levelData.getMoves() == 0){
-                        main.endGame(levelData.getPoints(), levelData.getGoal(), levelData.getMoves());
+                    if (endless) {
+                        if (levelData.getMoves() == 0){
+                            main.endGame(levelData.getPoints(), levelData.getGoal(), levelData.getMoves(), true);
+                        }
+                    } else {
+                        if (levelData.getPoints() >= levelData.getGoal() || levelData.getMoves() == 0){
+                            main.endGame(levelData.getPoints(), levelData.getGoal(), levelData.getMoves(), false);
+                        }
                     }
+
 //                    System.out.println("YOU RELEASED?");
                 }
             });

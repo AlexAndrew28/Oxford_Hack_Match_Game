@@ -107,7 +107,7 @@ public class Main extends Application {
 
         button_endless.setOnAction(value -> {
             try {
-                primaryStage.setScene(new GameScreen(this, is.getValueOfInvSlots(), 1, 10000, 20).getScene());
+                primaryStage.setScene(new GameScreen(this, is.getValueOfInvSlots(), 1, 10000, 20, true).getScene());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -115,8 +115,8 @@ public class Main extends Application {
         });
     }
 
-    public void endGame(int points, int goal, int movesLeft) {
-        primaryStage.setScene(new LevelEnd(points, goal, movesLeft, this).getScene());
+    public void endGame(int points, int goal, int movesLeft, boolean endless) {
+        primaryStage.setScene(new LevelEnd(points, goal, movesLeft, this, endless).getScene());
     }
 
     public void loadMainMenu() {
