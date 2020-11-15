@@ -89,7 +89,7 @@ public class InventoryScreen {
         Label description = new Label("");
         description.setMinWidth(400);
         description.setMaxWidth(400);
-        description.setMinHeight(50);
+        description.setMinHeight(90);
         description.setWrapText(true);
         description.setFont(Font.font("Verdana",20));
         description.setAlignment(Pos.CENTER);
