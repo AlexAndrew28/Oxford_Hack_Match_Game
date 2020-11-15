@@ -5,7 +5,6 @@ import javafx.scene.image.Image;
 public class Item {
     private int itemID;
     private String desc;
-    private Object image;
     private String name;
     private Boolean owned;
     private int era;

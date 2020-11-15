@@ -2,12 +2,9 @@ package sample;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
@@ -44,7 +41,7 @@ public class LevelEnd {
         Text moveNum = new Text(movesLeft + "");
         Text goldText = new Text("Gold Earned:");
         Text goldNum = new Text(movesLeft * goal + "");
-        main.gsd.updategold(main.gsd.getGold() + movesLeft * goal);
+        main.gsd.updateGold(main.gsd.getGold() + movesLeft * goal);
 
         pointResult.setFont(Font.font(20));
         pointNum.setFont(Font.font(20));

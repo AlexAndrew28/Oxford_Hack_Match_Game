@@ -21,7 +21,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class InventoryScreen {
-    private int era;
     private Items items;
     private Item[] valueOfInvSlots = new Item[8];
     private Stage primaryStage;
@@ -36,7 +35,7 @@ public class InventoryScreen {
     }
 
     public Scene generateScene() throws FileNotFoundException {
-        era = gsd.getEra();
+        int era = gsd.getEra();
 
         primaryStage.setMaximized(true);
 
@@ -103,9 +102,7 @@ public class InventoryScreen {
 
         Button backButton = new Button("Return to main menu");
 
-        backButton.setOnAction(value ->  {
-            main.loadCampaignMap();
-        });
+        backButton.setOnAction(value -> main.loadCampaignMap());
 
         mmgp.add(backButton, 7, 1, 1, 1);
 

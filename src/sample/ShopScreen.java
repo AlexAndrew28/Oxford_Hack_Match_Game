@@ -149,7 +149,7 @@ public class ShopScreen {
                         e.printStackTrace();
                     }
                     shopItem.setDisable(true);
-                    gsd.updategold(currentPlayerGold-itemsInShop[finalI].getGoldCost());
+                    gsd.updateGold(currentPlayerGold-itemsInShop[finalI].getGoldCost());
                     itemsInShop[finalI].setOwned(true);
                     currentGold.setText(""+gsd.getGold());
                 }

@@ -5,11 +5,10 @@ import javafx.scene.image.Image;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Items {
 
-    private ArrayList<Item> allItems = new ArrayList<Item>();
+    private ArrayList<Item> allItems = new ArrayList<>();
 
 
     public Items() throws FileNotFoundException {
@@ -101,10 +100,10 @@ public class Items {
 
 
     public Item[] getOwnedItems(int currentEra){
-        ArrayList<Item> eraItems = new ArrayList<Item>();
-        for(int i = 0; i < allItems.size(); i++){
-            if(allItems.get(i).getEra() <= currentEra && allItems.get(i).checkOwned()){
-                eraItems.add(allItems.get(i));
+        ArrayList<Item> eraItems = new ArrayList<>();
+        for (Item allItem : allItems) {
+            if (allItem.getEra() <= currentEra && allItem.checkOwned()) {
+                eraItems.add(allItem);
             }
         }
         return eraItems.toArray(new Item[0]);
@@ -113,10 +112,10 @@ public class Items {
 
 
     public Item[] getUnownedItems(int currentEra){
-        ArrayList<Item> eraItems = new ArrayList<Item>();
-        for(int i = 0; i < allItems.size(); i++){
-            if(allItems.get(i).getEra() <= currentEra && !allItems.get(i).checkOwned()){
-                eraItems.add(allItems.get(i));
+        ArrayList<Item> eraItems = new ArrayList<>();
+        for (Item allItem : allItems) {
+            if (allItem.getEra() <= currentEra && !allItem.checkOwned()) {
+                eraItems.add(allItem);
             }
         }
         return eraItems.toArray(new Item[0]);

@@ -13,7 +13,7 @@ public class GlobalSettingsData {
         return gold;
     }
 
-    public void updategold(int newValue){
+    public void updateGold(int newValue){
         gold = newValue;
     }
 
