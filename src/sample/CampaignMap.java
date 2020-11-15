@@ -313,6 +313,17 @@ public class CampaignMap {
             primaryStage.show();
         });
 
+        button_inventory.setOnAction(value -> {
+            InventoryScreen is = new InventoryScreen(items, primaryStage, scene, gsd);
+            Scene scene2 = null;
+            scene2 = is.generateScene();
+
+            primaryStage.setScene(scene2);
+            primaryStage.setMaximized(true);
+            primaryStage.isFullScreen();
+            primaryStage.show();
+        });
+
         return map;
     }
 }
