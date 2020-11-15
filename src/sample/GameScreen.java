@@ -43,13 +43,24 @@ public class GameScreen {
         InfoArea infoArea = new InfoArea(levelData);
         TileArea tiles = new TileArea(levelData, infoArea);
 
+        Button back = new Button("Back to Campaign");
+        back.setFont(Font.font(30));
+
         HBox outerLayout = new HBox(10);
         outerLayout.setAlignment(Pos.CENTER);
         outerLayout.setPadding(new Insets(10));
         outerLayout.getChildren().add(tiles);
         outerLayout.getChildren().add(infoArea);
-        gameScene = new Scene(outerLayout, 1600, 800);
+        StackPane wrapper = new StackPane();
+        wrapper.getChildren().add(outerLayout);
+        wrapper.getChildren().add(back);
+        StackPane.setAlignment(back, Pos.BOTTOM_CENTER);
+        gameScene = new Scene(wrapper, 1600, 800);
         gameScene.setFill(Color.gray(0.7));
+
+        back.setOnAction(value -> {
+            main.loadCampaignMap();
+        });
 
     }
 
@@ -68,7 +79,7 @@ public class GameScreen {
             setAlignment(Pos.CENTER);
             this.levelData = levelData;
             stats = new Canvas(400, 64*9-200);
-            items = new Canvas(400, 300);
+            items = new Canvas(400, 250);
             draw();
             getChildren().add(stats);
             getChildren().add(items);

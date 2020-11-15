@@ -14,13 +14,13 @@ public class InventoryScreen {
     private Items items;
     private Item[] valueOfInvSlots = new Item[8];
     private Stage primaryStage;
-    private Scene mainMenu;
+    private Main main;
     private GlobalSettingsData gsd;
 
-    public InventoryScreen(Items items, Stage primaryStage, Scene scene, GlobalSettingsData gsd){
+    public InventoryScreen(Items items, Stage primaryStage, Main main, GlobalSettingsData gsd){
         this.items = items;
         this.primaryStage = primaryStage;
-        this.mainMenu = scene;
+        this.main = main;
         this.gsd = gsd;
     }
 
@@ -47,7 +47,7 @@ public class InventoryScreen {
         Button backButton = new Button("Return to main menu");
 
         backButton.setOnAction(value ->  {
-            primaryStage.setScene(mainMenu);
+            main.loadCampaignMap();
         });
 
         mmgp.add(backButton, 7, 0, 1, 1);

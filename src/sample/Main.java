@@ -20,6 +20,7 @@ public class Main extends Application {
     Scene mainMenu;
     GlobalSettingsData gsd;
     InventoryScreen is;
+    CampaignMap map;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -59,9 +60,9 @@ public class Main extends Application {
 
         menuBox.getChildren().add(title);
         menuBox.getChildren().add(button_campaign);
-        menuBox.getChildren().add(button_endless);
-        menuBox.getChildren().add(button_inventory);
-        menuBox.getChildren().add(button_shop);
+//        menuBox.getChildren().add(button_endless);
+//        menuBox.getChildren().add(button_inventory);
+//        menuBox.getChildren().add(button_shop);
 //        menuBox.getChildren().add(button_test);
 
         menuBox.setAlignment(Pos.CENTER);
@@ -71,14 +72,14 @@ public class Main extends Application {
         gsd = new GlobalSettingsData();
 
         Items items = new Items();
-        is = new InventoryScreen(items, primaryStage, mainMenu, gsd);
-        ShopScreen ss = new ShopScreen(items, gsd, primaryStage, mainMenu);
+        is = new InventoryScreen(items, primaryStage, this, gsd);
+        ShopScreen ss = new ShopScreen(items, gsd, primaryStage, this);
         Scene shopScene = ss.generateScene();
 
         primaryStage.setScene(mainMenu);
         primaryStage.show();
 
-        CampaignMap map = new CampaignMap(items, gsd, primaryStage, mainMenu, this);
+        map = new CampaignMap(items, gsd, primaryStage, mainMenu, this);
 
         button_campaign.setOnAction(value -> {
             try {
@@ -123,6 +124,14 @@ public class Main extends Application {
 
     public void loadMainMenu() {
         primaryStage.setScene(mainMenu);
+    }
+
+    public void loadCampaignMap() {
+        try {
+            primaryStage.setScene(map.setTheScene());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {

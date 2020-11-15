@@ -27,13 +27,13 @@ public class ShopScreen {
     private Items items;
     private GlobalSettingsData gsd;
     private Stage primaryStage;
-    private Scene mainMenu;
+    private Main main;
 
-    public ShopScreen(Items items, GlobalSettingsData gsd, Stage primaryStage, Scene scene){
+    public ShopScreen(Items items, GlobalSettingsData gsd, Stage primaryStage, Main main){
         this.items = items;
         this.gsd = gsd;
         this.primaryStage = primaryStage;
-        this.mainMenu = scene;
+        this.main = main;
     }
 
 
@@ -49,8 +49,7 @@ public class ShopScreen {
 
         Button backButton = new Button("Return to main menu");
         backButton.setOnAction(value ->  {
-            primaryStage.setScene(mainMenu);
-            primaryStage.setMaximized(true);
+            main.loadCampaignMap();
         });
 
         //mmgp.add(backButton, 1, 0, 1,1);

@@ -288,7 +288,7 @@ public class CampaignMap {
         });
 
         button_shop.setOnAction(value -> {
-            ShopScreen ss = new ShopScreen(items, gsd, primaryStage, scene);
+            ShopScreen ss = new ShopScreen(items, gsd, primaryStage, main);
             Scene scene2 = null;
             try {
                 scene2 = ss.generateScene();
@@ -303,9 +303,8 @@ public class CampaignMap {
         });
 
         button_inventory.setOnAction(value -> {
-            InventoryScreen is = new InventoryScreen(items, primaryStage, scene, gsd);
             Scene scene2 = null;
-            scene2 = is.generateScene();
+            scene2 = main.is.generateScene();
 
             primaryStage.setScene(scene2);
             primaryStage.setMaximized(true);
