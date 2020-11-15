@@ -18,6 +18,7 @@ public class Main extends Application {
 
     Stage primaryStage;
     Scene mainMenu;
+    GlobalSettingsData gsd;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -66,7 +67,7 @@ public class Main extends Application {
 
         mainMenu = new Scene(menuBox, 600, 600);
 
-        GlobalSettingsData gsd = new GlobalSettingsData();
+        gsd = new GlobalSettingsData();
 
         Items items = new Items();
         InventoryScreen is = new InventoryScreen(items, primaryStage, mainMenu, gsd);

@@ -44,6 +44,7 @@ public class LevelEnd {
         Text moveNum = new Text(movesLeft + "");
         Text goldText = new Text("Gold Earned:");
         Text goldNum = new Text(movesLeft * goal + "");
+        main.gsd.updategold(main.gsd.getGold() + movesLeft * goal);
 
         pointResult.setFont(Font.font(20));
         pointNum.setFont(Font.font(20));
