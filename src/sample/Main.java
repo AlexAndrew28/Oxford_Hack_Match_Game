@@ -3,9 +3,13 @@ package sample;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.awt.event.MouseEvent;
@@ -22,42 +26,52 @@ public class Main extends Application {
 
         primaryStage.setMaximized(true);
 
+        Text title = new Text("Time Swap");
+        title.setFont(Font.font(60));
         Button button_endless = new Button("Endless Mode");
         Button button_campaign = new Button("Campaign mode");
         Button button_inventory = new Button("Inventory");
         Button button_shop = new Button("Shop");
-        Button button_test = new Button("Test");
-        
-        //System.out.println("HI ALEX");
-        //System.out.println("sup bitches");
+//        Button button_test = new Button("Test");
+
+        Font btnFont = Font.font(30);
+        button_endless.setFont(btnFont);
+        button_campaign.setFont(btnFont);
+        button_inventory.setFont(btnFont);
+        button_shop.setFont(btnFont);
+//        button_test.setFont(btnFont);
+
+        button_endless.setMinWidth(300);
+        button_campaign.setMinWidth(300);
+        button_inventory.setMinWidth(300);
+        button_shop.setMinWidth(300);
+//        button_test.setMinWidth(300);
 
         button_shop.setOnAction(value ->  {
             System.out.println("button - shop");
         });
 
+        VBox menuBox = new VBox();
+        menuBox.setStyle("-fx-background-color: #B4B4B4;");
+        menuBox.setSpacing(20);
 
+        menuBox.getChildren().add(title);
+        menuBox.getChildren().add(button_campaign);
+        menuBox.getChildren().add(button_endless);
+        menuBox.getChildren().add(button_inventory);
+        menuBox.getChildren().add(button_shop);
+//        menuBox.getChildren().add(button_test);
 
-        GridPane mmgp = new GridPane();
+        menuBox.setAlignment(Pos.CENTER);
 
-        mmgp.add(button_endless, 0, 0, 1, 1);
-        mmgp.add(button_campaign, 0, 1, 1, 1);
-        mmgp.add(button_inventory, 0, 2, 1, 1);
-        mmgp.add(button_shop, 0, 3, 1, 1);
-
-        mmgp.add(button_test, 0, 4, 1, 1);
-
-        mainMenu = new Scene(mmgp, 200, 100);
-
+        mainMenu = new Scene(menuBox, 600, 600);
 
         GlobalSettingsData gsd = new GlobalSettingsData();
-
-
 
         Items items = new Items();
         InventoryScreen is = new InventoryScreen(items, primaryStage, mainMenu, gsd);
         ShopScreen ss = new ShopScreen(items, gsd, primaryStage, mainMenu);
         Scene shopScene = ss.generateScene();
-
 
         primaryStage.setScene(mainMenu);
         primaryStage.show();
