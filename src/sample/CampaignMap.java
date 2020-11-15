@@ -400,14 +400,26 @@ public class CampaignMap {
         });
 
         buttonPortal_start.setOnAction(value -> { // tutorial scene
+            primaryStage.setScene(new GameScreen(main, main.is.getValueOfInvSlots(), 1, 10000, 5, true).getScene());
+            primaryStage.setMaximized(true);
+            primaryStage.isFullScreen();
+            primaryStage.show();
 
         });
 
         buttonPortal_fantasy.setOnAction(value ->{ // cutscene?
+            primaryStage.setScene(new GameScreen(main, main.is.getValueOfInvSlots(), 1, 10000, 10, true).getScene());
+            primaryStage.setMaximized(true);
+            primaryStage.isFullScreen();
+            primaryStage.show();
 
         });
 
         buttonPortal_future.setOnAction(value ->{ // also cutscene?
+            primaryStage.setScene(new GameScreen(main, main.is.getValueOfInvSlots(), 1, 10000, 15, true).getScene());
+            primaryStage.setMaximized(true);
+            primaryStage.isFullScreen();
+            primaryStage.show();
 
         });
 
