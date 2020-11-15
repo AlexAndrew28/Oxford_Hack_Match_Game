@@ -32,7 +32,7 @@ public class Main extends Application {
         Text title = new Text("Time Swap");
         title.setFont(Font.font(60));
         Button button_endless = new Button("Endless Mode");
-        Button button_campaign = new Button("Campaign mode");
+        Button button_campaign = new Button("Play");
         Button button_inventory = new Button("Inventory");
         Button button_shop = new Button("Shop");
 //        Button button_test = new Button("Test");
@@ -120,10 +120,12 @@ public class Main extends Application {
 
     public void endGame(int points, int goal, int movesLeft, boolean endless) {
         primaryStage.setScene(new LevelEnd(points, goal, movesLeft, this, endless).getScene());
+        primaryStage.setMaximized(true);
     }
 
     public void loadMainMenu() {
         primaryStage.setScene(mainMenu);
+        primaryStage.setMaximized(true);
     }
 
     public void loadCampaignMap() {
@@ -132,6 +134,7 @@ public class Main extends Application {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        primaryStage.setMaximized(true);
     }
 
     public static void main(String[] args) {

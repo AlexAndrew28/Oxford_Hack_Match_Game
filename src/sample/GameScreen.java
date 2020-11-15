@@ -55,7 +55,7 @@ public class GameScreen {
         wrapper.getChildren().add(outerLayout);
         wrapper.getChildren().add(back);
         StackPane.setAlignment(back, Pos.BOTTOM_CENTER);
-        gameScene = new Scene(wrapper, 1600, 800);
+        gameScene = new Scene(wrapper);
         gameScene.setFill(Color.gray(0.7));
 
         back.setOnAction(value -> {
@@ -178,7 +178,6 @@ public class GameScreen {
 
                 }
             }
-
         }
 
     }
