@@ -64,16 +64,24 @@ public class ShopScreen {
         backgroundRec.setArcWidth(20);
         backgroundRec.setArcHeight(20);
 
-        mmgp.add(new Group(backgroundRec),1,2,10,20);
+        Rectangle finalBackground = new Rectangle();
+        finalBackground.setX(0);
+        finalBackground.setY(0);
+        finalBackground.setWidth(Screen.getPrimary().getBounds().getWidth());
+        finalBackground.setHeight(Screen.getPrimary().getBounds().getHeight()*5);
+        finalBackground.setFill(Color.DIMGREY);
+
+        mmgp.add(new Group(finalBackground), 0, 0, 10, 50);
+        mmgp.add(new Group(backgroundRec),1,2,10,30);
 
         Image topBorder = new Image(new FileInputStream(System.getProperty("user.dir") + "\\src\\images\\topBorder.png"));
         mmgp.add(new ImageView(topBorder),1,0,10,1);
 
         Label desc = new Label("");
         desc.setFont(Font.font("Verdana",20));
-        desc.setMaxWidth(300);
+        desc.setMaxWidth(250);
         desc.setWrapText(true);
-        mmgp.add(desc,11,3,1,3);
+        mmgp.add(desc,7,3,1,3);
 
         Item[] itemsInShop = items.getUnownedItems(era);
 
@@ -89,11 +97,11 @@ public class ShopScreen {
 
         Region bigLeftSpacer = new Region();
         bigLeftSpacer.setMinWidth((Screen.getPrimary().getBounds().getWidth()/2) - 400);
-        mmgp.add(bigLeftSpacer, 0, 0, 1, 1);
+        mmgp.add(bigLeftSpacer, 0, 0, 1, 20);
 
         //Region smallLeftSpacer = new Region();
         //smallLeftSpacer.setMinWidth(10);
-        mmgp.add(sc,1,2,1,15);
+        mmgp.add(sc,1,2,1,20);
         mmgp.add(backButton, 1, 0, 1,1);
         sc.valueProperty().addListener(new ChangeListener<Number>() {
             public void changed(ObservableValue<? extends Number> ov,
@@ -113,10 +121,10 @@ public class ShopScreen {
                 currentItemEra = itemsInShop[i].getEra();
                 modifier = modifier + 1;
                 column = 2;
-                row = row + 1;
-                Label spacer = new Label("");
-                mmgp.add(spacer, column, row, 1, 1);
-                row = row + 3;
+                row = row + 2;
+                //Label spacer = new Label("");
+                //mmgp.add(spacer, column, row, 1, 1);
+                //row = row + 1;
             }
             Label itemName = new Label(itemsInShop[i].getName());
             itemName.setFont(Font.font("Verdana",15));
@@ -159,7 +167,7 @@ public class ShopScreen {
             column = column + 1;
             if(column > 5){
                 column = 2;
-                row = row + 4;
+                row = row + 3;
             }
         }
 

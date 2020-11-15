@@ -321,7 +321,11 @@ public class CampaignMap {
 
         button_inventory.setOnAction(value -> {
             Scene scene2 = null;
-            scene2 = main.is.generateScene();
+            try {
+                scene2 = main.is.generateScene();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
 
             primaryStage.setScene(scene2);
             primaryStage.setMaximized(true);

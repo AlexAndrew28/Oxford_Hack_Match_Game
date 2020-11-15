@@ -5,7 +5,7 @@ public class GlobalSettingsData {
     private int era;
 
     public GlobalSettingsData(){
-        era = 1;
+        era = 2;
         gold = 1000000;
     }
 

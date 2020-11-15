@@ -1,13 +1,24 @@
 package sample;
 
+import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Region;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class InventoryScreen {
     private int era;
@@ -24,25 +35,70 @@ public class InventoryScreen {
         this.gsd = gsd;
     }
 
-    public Scene generateScene(){
+    public Scene generateScene() throws FileNotFoundException {
+        era = gsd.getEra();
 
-
-
-        era = 1;
         primaryStage.setMaximized(true);
+
         Item[] ownedItems = items.getOwnedItems(era);
         GridPane mmgp = new GridPane();
-        mmgp.setHgap(10);
-        mmgp.setVgap(10);
-        AtomicInteger currentInvSlot = new AtomicInteger(0);
 
+        mmgp.setVgap(10);
+        mmgp.setHgap(10);
+
+        AtomicInteger currentInvSlot = new AtomicInteger(0);
+        mmgp.setMinWidth(Screen.getPrimary().getBounds().getWidth());
+        mmgp.setMinHeight(Screen.getPrimary().getBounds().getHeight());
         Button[] invSlots = new Button[8];
 
+        Rectangle backgroundRec = new Rectangle();
+        backgroundRec.setX(0);
+        backgroundRec.setY(0);
+        backgroundRec.setWidth(800);
+        backgroundRec.setHeight(Screen.getPrimary().getBounds().getHeight()*2);
+        backgroundRec.setFill(Color.SANDYBROWN);
+
+        backgroundRec.setArcWidth(20);
+        backgroundRec.setArcHeight(20);
+
+        Rectangle finalBackground = new Rectangle();
+        finalBackground.setX(0);
+        finalBackground.setY(0);
+        finalBackground.setWidth(Screen.getPrimary().getBounds().getWidth());
+        finalBackground.setHeight(Screen.getPrimary().getBounds().getHeight());
+        finalBackground.setFill(Color.SADDLEBROWN);
+
+        mmgp.add(new Group(finalBackground), 0, 0, 20,15);
+
+        mmgp.add(new Group(backgroundRec),1,0,10,20);
+
+        Region bigLeftSpacer = new Region();
+        bigLeftSpacer.setMinWidth((Screen.getPrimary().getBounds().getWidth()/2) - 400);
+        mmgp.add(bigLeftSpacer, 0, 0, 1, 1);
+        /*
+        Region spacer = new Region();
+        spacer.setMinWidth(20);
+        mmgp.add(spacer, 5,0,1,10);
+
+         */
+
+        Image banner = new Image(new FileInputStream(System.getProperty("user.dir") + "\\src\\images\\inventoryBanner.png"));
+
+        mmgp.add(new ImageView(banner), 1, 0, 10, 1);
 
         Label description = new Label("");
-        description.setMinWidth(300);
-        description.setMaxWidth(300);
-        mmgp.add(description, 6, 0, 1, 5);
+        description.setMinWidth(400);
+        description.setMaxWidth(400);
+        description.setWrapText(true);
+        description.setFont(Font.font("Verdana",20));
+        description.setAlignment(Pos.CENTER);
+        mmgp.add(description, 1, 4, 4, 1);
+
+        Image icon = new Image(new FileInputStream(System.getProperty("user.dir") + "\\src\\images\\blank.png"));
+
+        ImageView iconHolder = new ImageView(icon);
+
+        mmgp.add(iconHolder,7,2,1,1);
 
         Button backButton = new Button("Return to main menu");
 
@@ -50,7 +106,7 @@ public class InventoryScreen {
             main.loadCampaignMap();
         });
 
-        mmgp.add(backButton, 7, 0, 1, 1);
+        mmgp.add(backButton, 7, 1, 1, 1);
 
 
 
@@ -67,8 +123,8 @@ public class InventoryScreen {
                 }
                 valueOfInvSlots[finalI] = null;
             });
-            int column = i % 4;
-            int row = (i/4);
+            int column = i % 4 + 1;
+            int row = (i/4) + 1;
             mmgp.add(invSlots[i], column, row, 1, 1);
         }
 
@@ -83,6 +139,14 @@ public class InventoryScreen {
             newButton.hoverProperty().addListener((event)->
                     description.setText(ownedItems[finalI].getDesc())
             );
+            AtomicReference<Image> image = new AtomicReference<>();
+            newButton.hoverProperty().addListener((event) ->
+                    image.set(ownedItems[finalI].getIcon())
+            );
+            newButton.hoverProperty().addListener((event) ->
+                    iconHolder.setImage(image.get())
+            );
+
             newButton.setOnAction(value ->  {
                 System.out.println("button - " + ownedItems[finalI].getName());
                 if(!ownedItems[finalI].getEquipped() && currentInvSlot.get() < 8){
@@ -92,8 +156,8 @@ public class InventoryScreen {
                     currentInvSlot.set(currentInvSlot.get() + 1);
                 }
             });
-            int column = i % 4;
-            int row = (i/4) + 3;
+            int column = i % 4 + 1;
+            int row = (i/4) + 5;
             mmgp.add(newButton, column, row, 1, 1);
         }
 
