@@ -1,6 +1,5 @@
 package sample;
 
-
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -13,7 +12,6 @@ import javafx.stage.Stage;
 import java.io.FileInputStream;
 
 public class CampaignMap {
-
 
 
     public Scene setTheScene() throws Exception {
