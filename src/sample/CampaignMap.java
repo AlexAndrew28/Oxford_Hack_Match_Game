@@ -406,6 +406,28 @@ public class CampaignMap {
             primaryStage.show();
         });
 
+        buttonPortal_start.setOnAction(value -> { // tutorial scene
+            /*InventoryScreen is = new InventoryScreen(items, primaryStage, scene, gsd);
+            new GameScreen(main, is.getValueOfInvSlots(), 9, 10000, 20).getScene();
+            primaryStage.setScene(new GameScreen(main, is.getValueOfInvSlots(), 2, 10000, 20).getScene());
+
+            primaryStage.setMaximized(true);
+            primaryStage.isFullScreen();
+            primaryStage.show();*/
+        });
+
+        buttonPortal_fantasy.setOnAction(value ->{ // cutscene?
+
+        });
+
+        buttonPortal_future.setOnAction(value ->{ // also cutscene?
+
+        });
+
+        buttonPortal_end.setOnAction(value ->{ // endless mode
+
+        });
+
 
 
 
